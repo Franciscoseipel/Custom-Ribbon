@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel='stylesheet' type='text/css' href='/pebble/config/slate-0.0.3/dist/css/slate.min.css'>
+  <link rel='stylesheet' type='text/css' href='/pebble/config/css/style.css'>
+</head>
+<body>
+  <div class='item-container'>
+    <h1 class='title'>Watchface<br>Configuration Page</h1>
+  </div>
+  <div class='item-container'>
+    <div class='item-container-content'>
+      <div class='item'>
+        Use this configuration page to choose the settings you would like applied to this
+        app.<a href="/pebble/config/themes.html">voice share</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <a href="JavaScript:png(1)">
+    <img src="pic/1.png" id="png1" alt="1" style="width:44px;height:68px;"></a>
+  
+  
+  
+  
+  
+  <div class='item-container'>
+    <div class='item-container-header'>Customizability</div>
+    <div class='item-container-content'>
+      <label class='item'>
+        Background Color
+        <input id='backgroundColorPicker' type='text' class='item-color item-color-sunny'
+        value='#000000'>
+      </label>
+    </div>
+
+  <div class="item-container-header">draggable Items</div>
+  <div class="item-container-content">
+    <ul id="sortable">
+    <div class="item-draggable-list" id='Layerlist'>
+      <label class="item"><li value="1">First Hour Digit</li></label>
+      <label class="item"><li value="2">Second Hour Digit</li></label>
+      <label class="item"><li value="3">First Minute Digit</li></label>
+      <label class="item"><li value="4">Second Minute Digit</li></label>
+  </div>
+  </ul>
+
+<label class='item'>
+        invert animation delay
+        <input id='invertanimationdelaycheckbox' type='checkbox' class='item-toggle' checked>
+      </label>
+      <label class='item'>
+        change all numbers
+        <input id='changeallnumberscheckbox' type='checkbox' class='item-toggle' checked>
+      </label>
+  </div>
+ </div>   
+    
+    
+    
+    
+    
+    <div class='item-container'>
+    <div class='item-container-header'>First Hour-Digit</div>
+    <div class='item-container-content'>
+      <label class="item">
+        Direction
+        <select id='h1dirpic' name="h1dirpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">↑</option>
+          <option class="item-select-option" value="2">↗</option>
+          <option class="item-select-option" value="3">→</option>
+          <option class="item-select-option" value="4">↘</option>
+          <option class="item-select-option" value="5">↓</option>
+          <option class="item-select-option" value="6">↙</option>
+          <option class="item-select-option" value="7">←</option>
+          <option class="item-select-option" value="8" selected>↖</option>
+        </select>
+      </label>
+      <label class='item'>
+        Number Color
+        <input id='h1numberColorPicker' type='text' class='item-color item-color-sunny'
+        value='#FFFFFF'>
+      </label>
+      <label class='item'>
+        Band Color
+        <input id='h1bandColorPicker' type='text' class='item-color item-color-sunny' value='#00AAFF'>
+      </label>
+      <label class='item'>
+        Transparent Band
+        <input id='timeFormatCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class='item'>
+        Line Color
+        <input id='h1linesColorPicker' type='text' class='item-color item-color-sunny'
+        value='#0055FF'>
+      </label>
+      <label class='item'>
+        Outlines
+        <input id='h1outlineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <label class='item'>
+        Lines
+        <input id='h1lineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class="item">
+        Position
+        <div class="item-container-footer">
+          X-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h1xPicker' type="number" class="item-input" name="h1xPicker" placeholder="X" value="40">
+        </div>
+        <div class="item-container-footer">
+          Y-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h1yPicker' type="number" class="item-input" name="h1yPicker" placeholder="Y" value="32">
+        </div>
+        <div class="item-container-footer">
+          Display has (144x168) pixel. Digit Dimensions (25x50)
+        </div>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class="item">
+        Animation
+        <div class="item-container-footer">
+          Duration
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h1durationPicker' type="number" class="item-input" name="h1durationPicker"
+          placeholder="Duration" value="1000">
+        </div>
+        <div class="item-container-footer">
+          Delay
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h1delayPicker' type="number" class="item-input" name="h1delayPicker"
+          placeholder="Delay" value="500">
+        </div>
+        <div class="item-container-footer">
+          in ms. (1000ms = 1sec)
+        </div>
+      </label>
+    </div>
+     </div>
+    
+    <div class='item-container'>
+    <div class='item-container-header'>Second Hour-Digit</div>
+    <div class='item-container-content'>
+      <label class="item">
+        Direction
+        <select id='h2dirpic' name="h2dirpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">↑</option>
+          <option class="item-select-option" value="2">↗</option>
+          <option class="item-select-option" value="3">→</option>
+          <option class="item-select-option" value="4">↘</option>
+          <option class="item-select-option" value="5">↓</option>
+          <option class="item-select-option" value="6">↙</option>
+          <option class="item-select-option" value="7" selected>←</option>
+          <option class="item-select-option" value="8">↖</option>
+        </select>
+      </label>
+      <label class='item'>
+        Number Color
+        <input id='h2numberColorPicker' type='text' class='item-color item-color-sunny'
+        value='#FFFFFF'>
+      </label>
+      <label class='item'>
+        Band Color
+        <input id='h2bandColorPicker' type='text' class='item-color item-color-sunny' value='#0055FF'>
+      </label>
+      <label class='item'>
+        Transparent Band
+        <input id='h2transCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class='item'>
+        Line Color
+        <input id='h2linesColorPicker' type='text' class='item-color item-color-sunny'
+        value='#000000'>
+      </label>
+      <label class='item'>
+        Outlines
+        <input id='h2outlineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <label class='item'>
+        Lines
+        <input id='h2lineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class="item">
+        Position
+        <div class="item-container-footer">
+          X-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h2xPicker' type="number" class="item-input" name="h2xPicker" placeholder="X" value="90">
+        </div>
+        <div class="item-container-footer">
+          Y-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h2yPicker' type="number" class="item-input" name="h2yPicker" placeholder="Y" value="32">
+        </div>
+        <div class="item-container-footer">
+          Display has (144x168) pixel. Digit Dimensions (25x50)
+        </div>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class="item">
+        Animation
+        <div class="item-container-footer">
+          Duration
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h2durationPicker' type="number" class="item-input" name="h2durationPicker"
+          placeholder="Duration" value="1000">
+        </div>
+        <div class="item-container-footer">
+          Delay
+        </div>
+        <div class="item-input-wrapper">
+          <input value="0" id='h2delayPicker' type="number" class="item-input" name="h2delayPicker"
+          placeholder="Delay">
+        </div>
+        <div class="item-container-footer">
+          in ms. (1000ms = 1sec)
+        </div>
+      </label>
+    </div>
+     </div>
+    
+    
+    
+    
+    
+    <div class='item-container'>
+    <div class='item-container-header'>First Minute-Digit</div>
+    <div class='item-container-content'>
+      <label class="item">
+        Direction
+        <select id='m1dirpic' name="m1dirpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">↑</option>
+          <option class="item-select-option" value="2">↗</option>
+          <option class="item-select-option" value="3">→</option>
+          <option class="item-select-option" value="4">↘</option>
+          <option class="item-select-option" value="5">↓</option>
+          <option class="item-select-option" value="6" selected>↙</option>
+          <option class="item-select-option" value="7">←</option>
+          <option class="item-select-option" value="8">↖</option>
+        </select>
+      </label>
+      <label class='item'>
+        Number Color
+        <input id='m1numberColorPicker' type='text' class='item-color item-color-sunny'
+        value='#FFFFFF'>
+      </label>
+      <label class='item'>
+        Band Color
+        <input id='m1bandColorPicker' type='text' class='item-color item-color-sunny' value='#00ff00'>
+      </label>
+      <label class='item'>
+        Transparent Band
+        <input id='m1transCheckbox' type='checkbox' class='item-checkbox' >
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class='item'>
+        Line Color
+        <input id='m1linesColorPicker' type='text' class='item-color item-color-sunny'
+        value='#000000'>
+      </label>
+      <label class='item'>
+        Outlines
+        <input id='m1outlineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <label class='item'>
+        Lines
+        <input id='m1lineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class="item">
+        Position
+        <div class="item-container-footer">
+          X-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input value="40"  id='m1xPicker' type="number" class="item-input" name="m1xPicker" placeholder="X">
+        </div>
+        <div class="item-container-footer">
+          Y-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input value="97" id='m1yPicker' type="number" class="item-input" name="m1yPicker" placeholder="Y">
+        </div>
+        <div class="item-container-footer">
+          Display has (144x168) pixel. Digit Dimensions (25x50)
+        </div>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class="item">
+        Animation
+        <div class="item-container-footer">
+          Duration
+        </div>
+        <div class="item-input-wrapper">
+          <input value="1000" id='m1durationPicker' type="number" class="item-input" name="m1durationPicker"
+          placeholder="Duration">
+        </div>
+        <div class="item-container-footer">
+          Delay
+        </div>
+        <div class="item-input-wrapper">
+          <input value="600" id='m1delayPicker' type="number" class="item-input" name="m1delayPicker"
+          placeholder="Delay">
+        </div>
+        <div class="item-container-footer">
+          in ms. (1000ms = 1sec)
+        </div>
+      </label>
+    </div>
+     </div>
+    
+    <div class='item-container'>
+        <div class='item-container-header'>Second Minute-Digit</div>
+    <div class='item-container-content'>
+      <label class="item">
+        Direction
+        <select id='m2dirpic' name="m2dirpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">↑</option>
+          <option class="item-select-option" value="2">↗</option>
+          <option class="item-select-option" value="3">→</option>
+          <option class="item-select-option" value="4">↘</option>
+          <option class="item-select-option" value="5">↓</option>
+          <option class="item-select-option" value="6">↙</option>
+          <option class="item-select-option" value="7" selected>←</option>
+          <option class="item-select-option" value="8">↖</option>
+        </select>
+      </label>
+      <label class='item'>
+        Number Color
+        <input id='m2numberColorPicker' type='text' class='item-color item-color-sunny'
+        value='#FFFFFF'>
+      </label>
+      <label class='item'>
+        Band Color
+        <input id='m2bandColorPicker' type='text' class='item-color item-color-sunny' value='#009600'>
+      </label>
+      <label class='item'>
+        Transparent Band
+        <input id='m2transCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class='item'>
+        Line Color
+        <input id='m2linesColorPicker' type='text' class='item-color item-color-sunny'
+        value='#000000'>
+      </label>
+      <label class='item'>
+        Outlines
+        <input id='m2outlineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <label class='item'>
+        Lines
+        <input id='m2lineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class="item">
+        Position
+        <div class="item-container-footer">
+          X-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input value="90" id='m2xPicker' type="number" class="item-input" name="m2xPicker" placeholder="X">
+        </div>
+        <div class="item-container-footer">
+          Y-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input value="97" id='m2yPicker' type="number" class="item-input" name="m2yPicker" placeholder="Y">
+        </div>
+        <div class="item-container-footer">
+          Display has (144x168) pixel. Digit Dimensions (25x50)
+        </div>
+      </label>
+      <div class='item-container-content'>
+      </div>
+      <label class="item">
+        Animation
+        <div class="item-container-footer">
+          Duration
+        </div>
+        <div class="item-input-wrapper">
+          <input id='m2durationPicker' type="number" class="item-input" name="m2durationPicker"
+          placeholder="Duration" value="1000">
+        </div>
+        <div class="item-container-footer">
+          Delay
+        </div>
+        <div class="item-input-wrapper">
+          <input id='m2delayPicker' type="number" class="item-input" name="m2delayPicker"
+          placeholder="Delay" value="100">
+        </div>
+        <div class="item-container-footer">
+          in ms. (1000ms = 1sec)
+        </div>
+      </label>
+    </div>
+     </div>
+    
+    
+    
+    
+    <div class="item-container">
+      <div class="item-container-header">Export + Import</div>
+      <div class="item-container-content">
+        <label class="item">
+          <div class="item-input-wrapper item-input-wrapper-button">
+            <input onClick="this.setSelectionRange(0, this.value.length)" id='generatse' type="text" class="item-input" name="generatse" placeholder="">
+          </div>
+          <input id='import' type="button" class="item-button item-input-button" value="IMPORT">
+        </label>
+      </div>
+    </div>
+    <div class='item-container-footer'>
+      These settings only change on the watch after you click save.
+    </div>
+ 
+  <div class='item-container'>
+    <div class='button-container'>
+      <input id='submitButton' type='button' class='item-button' value='SUBMIT'>
+    </div>
+  </div>
+  <script src='/pebble/config/slate-0.0.3/dist/js/slate.min.js'></script>
+  <script src='/pebble/config/js/main.js'></script>
+</body>
+</html>
