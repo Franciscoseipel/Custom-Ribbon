@@ -8,66 +8,117 @@
 </head>
 <body>
   <div class='item-container'>
-    <h1 class='title'>Watchface<br>Configuration Page</h1>
+    <h1 class='title'>Custom Ribbon</h1>
   </div>
   <div class='item-container'>
     <div class='item-container-content'>
-      <div class='item'>
-        Use this configuration page to choose the settings you would like applied to this
-        app.<a href="/pebble/config/themes.html">voice share</a>
+      <div class='item' style="text-align: center">
+        <a href="/pebble/config/themes.html" style="text-align: center">- Click here for Themes -</a>
       </div>
     </div>
   </div>
   
   
   
-  <a href="JavaScript:png(1)">
-    <img src="pic/1.png" id="png1" alt="1" style="width:44px;height:68px;"></a>
+ <!--<a href="JavaScript:png(1)">
+    <img src="pic/1.png" id="png1" alt="1" style="width:44px;height:68px;"></a> --> 
   
   
   
   
   
   <div class='item-container'>
-    <div class='item-container-header'>Customizability</div>
+      
+  <div class='item-container-header'>Slide in extension</div>
     <div class='item-container-content'>
+      
+            <label class="item">
+        Position
+        <div class="item-input-wrapper">
+          <input id='enegyPicker' type="number" class="item-input" name="h1xPicker" placeholder="X" value="40">
+        </div>
+      </label>
+      
+      
+      
+      <label class="item">
+        First Layer
+        <select id='l1funcpic' name="l1funcpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1" selected>Date</option>
+          <option class="item-select-option" value="2">Weather</option>
+          <option class="item-select-option" value="3">Steps</option>
+          <option class="item-select-option" value="4">Sleep</option>
+        </select>
+      </label>
+      
+      <label class="item">
+        Second Layer
+        <select id='l2funcpic' name="l2funcpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1" >Date</option>
+          <option class="item-select-option" value="2" selected>Weather</option>
+          <option class="item-select-option" value="3">Steps</option>
+          <option class="item-select-option" value="4">Sleep</option>
+        </select>
+      </label>
+      
+      <label class="item">
+        Third Layer
+        <select id='l3funcpic' name="l3funcpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">Date</option>
+          <option class="item-select-option" value="2">Weather</option>
+          <option class="item-select-option" value="3" selected>Steps</option>
+          <option class="item-select-option" value="4">Sleep</option>
+        </select>
+      </label>
       <label class='item'>
+        Font Color
+        <input id='extensionfontColorPicker' type='text' class='item-color item-color-sunny'
+        value='#000000'>
+      </label>
+      <label class='item'>
+        Background Color
+        <input id='extensionbackColorPicker' type='text' class='item-color item-color-sunny'
+        value='#FFFFFF'>
+      </label>
+       
+
+    </div>  
+      
+      
+      
+    </div>
+  <div class='item-container'>    
+      
+      
+      
+
+  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <div class='item-container-header'>Ribbon</div>
+    <div class='item-container-content'>
+      
+      
+      <div class="item-container-footer">
+          General
+      </div>
+      </div>
+      <div class='item-container-content'>
+      
+            <label class='item'>
         Background Color
         <input id='backgroundColorPicker' type='text' class='item-color item-color-sunny'
         value='#000000'>
       </label>
-    </div>
-
-  <div class="item-container-header">draggable Items</div>
-  <div class="item-container-content">
-    <ul id="sortable">
-    <div class="item-draggable-list" id='Layerlist'>
-      <label class="item"><li value="1">First Hour Digit</li></label>
-      <label class="item"><li value="2">Second Hour Digit</li></label>
-      <label class="item"><li value="3">First Minute Digit</li></label>
-      <label class="item"><li value="4">Second Minute Digit</li></label>
-  </div>
-  </ul>
-
-<label class='item'>
-        invert animation delay
-        <input id='invertanimationdelaycheckbox' type='checkbox' class='item-toggle' checked>
-      </label>
-      <label class='item'>
-        change all numbers
-        <input id='changeallnumberscheckbox' type='checkbox' class='item-toggle' checked>
-      </label>
-  </div>
- </div>   
-    
-    
-    
-    
-    
-    <div class='item-container'>
-    <div class='item-container-header'>First Hour-Digit</div>
-    <div class='item-container-content'>
-      <label class="item">
+      
+      
+      
+              <div class="item-container-footer">
+          First Hour-Digit
+        </div>
+        </div>
+        
+              <div class='item-container-content'>
+        
+  <label class="item">
         Direction
         <select id='h1dirpic' name="h1dirpic" dir='rtl' class="item-select">
           <option class="item-select-option" value="1">↑</option>
@@ -80,21 +131,179 @@
           <option class="item-select-option" value="8" selected>↖</option>
         </select>
       </label>
-      <label class='item'>
+      
+        <label class='item'>
         Number Color
         <input id='h1numberColorPicker' type='text' class='item-color item-color-sunny'
         value='#FFFFFF'>
       </label>
-      <label class='item'>
-        Band Color
+      
+      
+      
+  <label class='item'>
+        Ribbon Color
         <input id='h1bandColorPicker' type='text' class='item-color item-color-sunny' value='#00AAFF'>
       </label>
       <label class='item'>
-        Transparent Band
+        Transparent Ribbon
         <input id='timeFormatCheckbox' type='checkbox' class='item-checkbox'>
       </label>
+      
+      
+
+        
+      
+      <div class="item-container-footer">
+        
+          Second Hour-Digit
+        </div>
+        
+        
+              </div>
       <div class='item-container-content'>
+        
+        
+      <label class="item">
+        Direction
+        <select id='h2dirpic' name="h2dirpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">↑</option>
+          <option class="item-select-option" value="2">↗</option>
+          <option class="item-select-option" value="3">→</option>
+          <option class="item-select-option" value="4">↘</option>
+          <option class="item-select-option" value="5">↓</option>
+          <option class="item-select-option" value="6">↙</option>
+          <option class="item-select-option" value="7" selected>←</option>
+          <option class="item-select-option" value="8">↖</option>
+        </select>
+      </label>
+      
+            <label class='item'>
+        Number Color
+        <input id='h2numberColorPicker' type='text' class='item-color item-color-sunny'
+        value='#FFFFFF'>
+      </label>
+      
+      <label class='item'>
+        Ribbon Color
+        <input id='h2bandColorPicker' type='text' class='item-color item-color-sunny' value='#0055FF'>
+      </label>
+      <label class='item'>
+        Transparent Ribbon
+        <input id='h2transCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      
+
+      
+      <div class="item-container-footer">
+          First Minute-Digit
       </div>
+            
+      
+            </div>
+      <div class='item-container-content'>
+      
+      
+      
+      <label class="item">
+        Direction
+        <select id='m1dirpic' name="m1dirpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">↑</option>
+          <option class="item-select-option" value="2">↗</option>
+          <option class="item-select-option" value="3">→</option>
+          <option class="item-select-option" value="4">↘</option>
+          <option class="item-select-option" value="5">↓</option>
+          <option class="item-select-option" value="6" selected>↙</option>
+          <option class="item-select-option" value="7">←</option>
+          <option class="item-select-option" value="8">↖</option>
+        </select>
+      </label>  
+      
+            <label class='item'>
+        Number Color
+        <input id='m1numberColorPicker' type='text' class='item-color item-color-sunny'
+        value='#FFFFFF'>
+      </label>
+      
+      
+      <label class='item'>
+        Ribbon Color
+        <input id='m1bandColorPicker' type='text' class='item-color item-color-sunny' value='#00ff00'>
+      </label>
+      <label class='item'>
+        Transparent Ribbon
+        <input id='m1transCheckbox' type='checkbox' class='item-checkbox' >
+      </label>
+      
+  
+              <div class="item-container-footer">
+          Second Minute-Digit
+        </div>
+    
+      
+
+            </div>
+      <div class='item-container-content'>
+        
+        
+        
+
+      <label class="item">
+        Direction
+        <select id='m2dirpic' name="m2dirpic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">↑</option>
+          <option class="item-select-option" value="2">↗</option>
+          <option class="item-select-option" value="3">→</option>
+          <option class="item-select-option" value="4">↘</option>
+          <option class="item-select-option" value="5">↓</option>
+          <option class="item-select-option" value="6">↙</option>
+          <option class="item-select-option" value="7" selected>←</option>
+          <option class="item-select-option" value="8">↖</option>
+        </select>
+      </label>
+      
+      <label class='item'>
+        Number Color
+        <input id='m2numberColorPicker' type='text' class='item-color item-color-sunny'
+        value='#FFFFFF'>
+      </label>
+      
+      <label class='item'>
+        Ribbon Color
+        <input id='m2bandColorPicker' type='text' class='item-color item-color-sunny' value='#009600'>
+      </label>
+      <label class='item'>
+        Transparent Ribbon
+        <input id='m2transCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      
+      
+</div>
+
+
+  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    </div>
+  <div class='item-container'>
+  
+  
+  <!-- ggggggggggggggggggggggggggggggggggggggggggggggggggggggg -->
+  
+
+  
+    <div class='item-container-header'>Number</div>
+    <div class='item-container-content'>
+      
+      
+      
+              <div class="item-container-footer">
+          First Hour-Digit
+        </div>
+        </div>
+        
+              <div class='item-container-content'>
+        
+
+      
+
       <label class='item'>
         Line Color
         <input id='h1linesColorPicker' type='text' class='item-color item-color-sunny'
@@ -108,10 +317,145 @@
         Lines
         <input id='h1lineCheckbox' type='checkbox' class='item-toggle'>
       </label>
-      <div class='item-container-content'>
-      </div>
+      
+      
       <label class="item">
-        Position
+        Number 1 orientation
+        <select id='h1posonepic' name="h1posonepic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">Left</option>
+          <option class="item-select-option" value="2">Centred</option>
+          <option class="item-select-option" value="3" selected>Right</option>
+        </select>
+      </label>
+      
+      
+      
+      <div class="item-container-footer">
+          Second Hour-Digit
+      </div>
+      </div>
+      <div class='item-container-content'>
+      
+      
+      
+
+
+      <label class='item'>
+        Line Color
+        <input id='h2linesColorPicker' type='text' class='item-color item-color-sunny'
+        value='#000000'>
+      </label>
+      <label class='item'>
+        Outlines
+        <input id='h2outlineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <label class='item'>
+        Lines
+        <input id='h2lineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      
+      <label class="item">
+        Number 1 orientation
+        <select id='h2posonepic' name="h2posonepic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">Left</option>
+          <option class="item-select-option" value="2">Centred</option>
+          <option class="item-select-option" value="3" selected>Right</option>
+        </select>
+      </label>
+      
+      
+      
+      
+      <div class="item-container-footer">
+          First Minute-Digit
+      </div>
+      </div>
+      <div class='item-container-content'>
+      
+
+
+      <label class='item'>
+        Line Color
+        <input id='m1linesColorPicker' type='text' class='item-color item-color-sunny'
+        value='#000000'>
+      </label>
+      <label class='item'>
+        Outlines
+        <input id='m1outlineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <label class='item'>
+        Lines
+        <input id='m1lineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      
+      <label class="item">
+        Number 1 orientation
+        <select id='m1posonepic' name="m1posonepic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">Left</option>
+          <option class="item-select-option" value="2">Centred</option>
+          <option class="item-select-option" value="3" selected>Right</option>
+        </select>
+      </label>
+      
+      
+      
+      
+            <div class="item-container-footer">
+          Second Minute-Digit
+      </div>
+      </div>
+      <div class='item-container-content'>
+      
+
+
+      <label class='item'>
+        Line Color
+        <input id='m2linesColorPicker' type='text' class='item-color item-color-sunny'
+        value='#000000'>
+      </label>
+      <label class='item'>
+        Outlines
+        <input id='m2outlineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      <label class='item'>
+        Lines
+        <input id='m2lineCheckbox' type='checkbox' class='item-toggle'>
+      </label>
+      
+      <label class="item">
+        Number 1 orientation
+        <select id='m2posonepic' name="m2posonepic" dir='rtl' class="item-select">
+          <option class="item-select-option" value="1">Left</option>
+          <option class="item-select-option" value="2">Centred</option>
+          <option class="item-select-option" value="3" selected>Right</option>
+        </select>
+      </label>
+      
+      
+  </div>
+    
+    
+  <!-- ggggggggggggggggggggggggggggggggggggggggggggggggggggggg -->
+  
+    </div>
+  <div class='item-container'>
+
+<!-- LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL -->
+      <div class='item-container-header'>Position</div>
+            <div class="item-container-footer">
+          Display has (144x168) pixel. Digit Dimensions (25x50)
+        </div>
+    <div class='item-container-content'>
+      
+        
+      
+      
+                  <div class="item-container-footer">
+          first Hour-Digit
+      </div>
+      </div>
+      <div class='item-container-content'>
+        
         <div class="item-container-footer">
           X-Value
         </div>
@@ -124,14 +468,172 @@
         <div class="item-input-wrapper">
           <input id='h1yPicker' type="number" class="item-input" name="h1yPicker" placeholder="Y" value="32">
         </div>
-        <div class="item-container-footer">
-          Display has (144x168) pixel. Digit Dimensions (25x50)
-        </div>
-      </label>
-      <div class='item-container-content'>
+        
+        
+        <br/>
+        
+        
+        
+                    <div class="item-container-footer">
+          Second Hour-Digit
       </div>
-      <label class="item">
-        Animation
+       
+      </div>
+       
+      <div class='item-container-content'>
+        
+        
+        <div class="item-container-footer">
+          X-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h2xPicker' type="number" class="item-input" name="h2xPicker" placeholder="X" value="90">
+        </div>
+        <div class="item-container-footer">
+          Y-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input id='h2yPicker' type="number" class="item-input" name="h2yPicker" placeholder="Y" value="32">
+        </div>
+        
+        
+        <br/>
+        
+        
+                    <div class="item-container-footer">
+          First Minute-Digit
+      </div>
+      </div>
+      <div class='item-container-content'>
+        
+        
+        <div class="item-container-footer">
+          X-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input value="40"  id='m1xPicker' type="number" class="item-input" name="m1xPicker" placeholder="X">
+        </div>
+        <div class="item-container-footer">
+          Y-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input value="97" id='m1yPicker' type="number" class="item-input" name="m1yPicker" placeholder="Y">
+        </div>
+        
+        <br/>
+        
+        
+                    <div class="item-container-footer">
+          Second Minute-Digit
+      </div>
+      </div>
+      <div class='item-container-content'>
+      
+      <div class="item-container-footer">
+          X-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input value="90" id='m2xPicker' type="number" class="item-input" name="m2xPicker" placeholder="X">
+        </div>
+        <div class="item-container-footer">
+          Y-Value
+        </div>
+        <div class="item-input-wrapper">
+          <input value="97" id='m2yPicker' type="number" class="item-input" name="m2yPicker" placeholder="Y">
+        </div>
+      
+      <br/>
+      
+      
+
+    </div>
+<!-- LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL -->
+
+
+  </div>
+  <div class='item-container'>
+
+ <!-- zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz -->
+
+  <div class="item-container-header">Layer Priority</div>
+  <div class="item-container-content">
+    
+    
+     <div class="item-container-footer">
+          Number Priority
+      </div>
+            </div>
+      <div class='item-container-content'>
+  
+        <label class='item'>
+        Numbers always on Top
+        <input id='numberontopCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+    
+    
+    
+    
+          <div class="item-container-footer">
+          Ribbon Priority (draggable)
+      </div>
+      
+            </div>
+      <div class='item-container-content'>
+    
+    
+    
+    <ul id="sortable">
+    <div class="item-draggable-list" id='Layerlist'>
+      <label class="item"><li value="1">First Hour Digit</li></label>
+      <label class="item"><li value="2">Second Hour Digit</li></label>
+      <label class="item"><li value="3">First Minute Digit</li></label>
+      <label class="item"><li value="4">Second Minute Digit</li></label>
+  </div>
+  </ul>
+  
+  
+  
+       
+  
+  
+
+
+
+ </div>   
+ <!-- zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz -->    
+   </div>
+  <div class='item-container'>
+    
+    
+    <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->  
+    
+
+    <div class='item-container-header'>Animation</div>
+    <div class='item-container-content'>
+      
+     
+             <div class="item-container-footer">
+          General
+      </div>
+            </div>
+      <div class='item-container-content'>
+      
+      <label class='item'>
+        invert delay for outgoing animation
+        <input id='invertanimationdelaycheckbox' type='checkbox' class='item-toggle' checked>
+      </label>
+      <label class='item'>
+        change all numbers every minute
+        <input id='changeallnumberscheckbox' type='checkbox' class='item-toggle' checked>
+      </label>
+      
+      
+              <div class="item-container-footer">
+          First Hour-Digit
+      </div>
+            </div>
+      <div class='item-container-content'>
+        
         <div class="item-container-footer">
           Duration
         </div>
@@ -146,81 +648,18 @@
           <input id='h1delayPicker' type="number" class="item-input" name="h1delayPicker"
           placeholder="Delay" value="500">
         </div>
-        <div class="item-container-footer">
-          in ms. (1000ms = 1sec)
-        </div>
-      </label>
-    </div>
-     </div>
-    
-    <div class='item-container'>
-    <div class='item-container-header'>Second Hour-Digit</div>
-    <div class='item-container-content'>
-      <label class="item">
-        Direction
-        <select id='h2dirpic' name="h2dirpic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1">↑</option>
-          <option class="item-select-option" value="2">↗</option>
-          <option class="item-select-option" value="3">→</option>
-          <option class="item-select-option" value="4">↘</option>
-          <option class="item-select-option" value="5">↓</option>
-          <option class="item-select-option" value="6">↙</option>
-          <option class="item-select-option" value="7" selected>←</option>
-          <option class="item-select-option" value="8">↖</option>
-        </select>
-      </label>
-      <label class='item'>
-        Number Color
-        <input id='h2numberColorPicker' type='text' class='item-color item-color-sunny'
-        value='#FFFFFF'>
-      </label>
-      <label class='item'>
-        Band Color
-        <input id='h2bandColorPicker' type='text' class='item-color item-color-sunny' value='#0055FF'>
-      </label>
-      <label class='item'>
-        Transparent Band
-        <input id='h2transCheckbox' type='checkbox' class='item-checkbox'>
-      </label>
-      <div class='item-container-content'>
+        
+        
+        <br/>
+        
+        
+                <div class="item-container-footer">
+         Second Hour-Digit
       </div>
-      <label class='item'>
-        Line Color
-        <input id='h2linesColorPicker' type='text' class='item-color item-color-sunny'
-        value='#000000'>
-      </label>
-      <label class='item'>
-        Outlines
-        <input id='h2outlineCheckbox' type='checkbox' class='item-toggle'>
-      </label>
-      <label class='item'>
-        Lines
-        <input id='h2lineCheckbox' type='checkbox' class='item-toggle'>
-      </label>
+            </div>
       <div class='item-container-content'>
-      </div>
-      <label class="item">
-        Position
-        <div class="item-container-footer">
-          X-Value
-        </div>
-        <div class="item-input-wrapper">
-          <input id='h2xPicker' type="number" class="item-input" name="h2xPicker" placeholder="X" value="90">
-        </div>
-        <div class="item-container-footer">
-          Y-Value
-        </div>
-        <div class="item-input-wrapper">
-          <input id='h2yPicker' type="number" class="item-input" name="h2yPicker" placeholder="Y" value="32">
-        </div>
-        <div class="item-container-footer">
-          Display has (144x168) pixel. Digit Dimensions (25x50)
-        </div>
-      </label>
-      <div class='item-container-content'>
-      </div>
-      <label class="item">
-        Animation
+        
+        
         <div class="item-container-footer">
           Duration
         </div>
@@ -235,85 +674,17 @@
           <input value="0" id='h2delayPicker' type="number" class="item-input" name="h2delayPicker"
           placeholder="Delay">
         </div>
-        <div class="item-container-footer">
-          in ms. (1000ms = 1sec)
-        </div>
-      </label>
-    </div>
-     </div>
-    
-    
-    
-    
-    
-    <div class='item-container'>
-    <div class='item-container-header'>First Minute-Digit</div>
-    <div class='item-container-content'>
-      <label class="item">
-        Direction
-        <select id='m1dirpic' name="m1dirpic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1">↑</option>
-          <option class="item-select-option" value="2">↗</option>
-          <option class="item-select-option" value="3">→</option>
-          <option class="item-select-option" value="4">↘</option>
-          <option class="item-select-option" value="5">↓</option>
-          <option class="item-select-option" value="6" selected>↙</option>
-          <option class="item-select-option" value="7">←</option>
-          <option class="item-select-option" value="8">↖</option>
-        </select>
-      </label>
-      <label class='item'>
-        Number Color
-        <input id='m1numberColorPicker' type='text' class='item-color item-color-sunny'
-        value='#FFFFFF'>
-      </label>
-      <label class='item'>
-        Band Color
-        <input id='m1bandColorPicker' type='text' class='item-color item-color-sunny' value='#00ff00'>
-      </label>
-      <label class='item'>
-        Transparent Band
-        <input id='m1transCheckbox' type='checkbox' class='item-checkbox' >
-      </label>
-      <div class='item-container-content'>
+        
+        
+        <br/>
+        
+                <div class="item-container-footer">
+        First Minute-Digit
       </div>
-      <label class='item'>
-        Line Color
-        <input id='m1linesColorPicker' type='text' class='item-color item-color-sunny'
-        value='#000000'>
-      </label>
-      <label class='item'>
-        Outlines
-        <input id='m1outlineCheckbox' type='checkbox' class='item-toggle'>
-      </label>
-      <label class='item'>
-        Lines
-        <input id='m1lineCheckbox' type='checkbox' class='item-toggle'>
-      </label>
+            </div>
       <div class='item-container-content'>
-      </div>
-      <label class="item">
-        Position
-        <div class="item-container-footer">
-          X-Value
-        </div>
-        <div class="item-input-wrapper">
-          <input value="40"  id='m1xPicker' type="number" class="item-input" name="m1xPicker" placeholder="X">
-        </div>
-        <div class="item-container-footer">
-          Y-Value
-        </div>
-        <div class="item-input-wrapper">
-          <input value="97" id='m1yPicker' type="number" class="item-input" name="m1yPicker" placeholder="Y">
-        </div>
-        <div class="item-container-footer">
-          Display has (144x168) pixel. Digit Dimensions (25x50)
-        </div>
-      </label>
-      <div class='item-container-content'>
-      </div>
-      <label class="item">
-        Animation
+        
+        
         <div class="item-container-footer">
           Duration
         </div>
@@ -328,82 +699,19 @@
           <input value="600" id='m1delayPicker' type="number" class="item-input" name="m1delayPicker"
           placeholder="Delay">
         </div>
-        <div class="item-container-footer">
-          in ms. (1000ms = 1sec)
-        </div>
-      </label>
-    </div>
-     </div>
-    
-    <div class='item-container'>
-        <div class='item-container-header'>Second Minute-Digit</div>
-    <div class='item-container-content'>
-      <label class="item">
-        Direction
-        <select id='m2dirpic' name="m2dirpic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1">↑</option>
-          <option class="item-select-option" value="2">↗</option>
-          <option class="item-select-option" value="3">→</option>
-          <option class="item-select-option" value="4">↘</option>
-          <option class="item-select-option" value="5">↓</option>
-          <option class="item-select-option" value="6">↙</option>
-          <option class="item-select-option" value="7" selected>←</option>
-          <option class="item-select-option" value="8">↖</option>
-        </select>
-      </label>
-      <label class='item'>
-        Number Color
-        <input id='m2numberColorPicker' type='text' class='item-color item-color-sunny'
-        value='#FFFFFF'>
-      </label>
-      <label class='item'>
-        Band Color
-        <input id='m2bandColorPicker' type='text' class='item-color item-color-sunny' value='#009600'>
-      </label>
-      <label class='item'>
-        Transparent Band
-        <input id='m2transCheckbox' type='checkbox' class='item-checkbox'>
-      </label>
-      <div class='item-container-content'>
+        
+        
+        <br/>
+                <div class="item-container-footer">
+          Second Minute-Digit
       </div>
-      <label class='item'>
-        Line Color
-        <input id='m2linesColorPicker' type='text' class='item-color item-color-sunny'
-        value='#000000'>
-      </label>
-      <label class='item'>
-        Outlines
-        <input id='m2outlineCheckbox' type='checkbox' class='item-toggle'>
-      </label>
-      <label class='item'>
-        Lines
-        <input id='m2lineCheckbox' type='checkbox' class='item-toggle'>
-      </label>
+            </div>
       <div class='item-container-content'>
-      </div>
-      <label class="item">
-        Position
-        <div class="item-container-footer">
-          X-Value
-        </div>
-        <div class="item-input-wrapper">
-          <input value="90" id='m2xPicker' type="number" class="item-input" name="m2xPicker" placeholder="X">
-        </div>
-        <div class="item-container-footer">
-          Y-Value
-        </div>
-        <div class="item-input-wrapper">
-          <input value="97" id='m2yPicker' type="number" class="item-input" name="m2yPicker" placeholder="Y">
-        </div>
-        <div class="item-container-footer">
-          Display has (144x168) pixel. Digit Dimensions (25x50)
-        </div>
-      </label>
-      <div class='item-container-content'>
-      </div>
-      <label class="item">
-        Animation
-        <div class="item-container-footer">
+      
+      
+      
+      
+      <div class="item-container-footer">
           Duration
         </div>
         <div class="item-input-wrapper">
@@ -417,14 +725,26 @@
           <input id='m2delayPicker' type="number" class="item-input" name="m2delayPicker"
           placeholder="Delay" value="100">
         </div>
-        <div class="item-container-footer">
-          in ms. (1000ms = 1sec)
-        </div>
-      </label>
+      
+      
+      
+      <br/>
+      
+      
+      
+      
     </div>
      </div>
     
     
+    
+    
+    
+    
+    
+    
+    
+<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->    
     
     
     <div class="item-container">

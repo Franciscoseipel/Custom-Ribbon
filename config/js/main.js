@@ -65,6 +65,13 @@ function generateexport() {
     invertanimationdelay: localStorage.invertanimationdelay === 'true',
     changeallnumbers: localStorage.changeallnumbers === 'true',
     
+    numberontop: localStorage.numberontop === 'true',
+    h1posone: localStorage.h1posone === 'true',
+    h2posone: localStorage.h2posone === 'true',
+    m1posone: localStorage.m1posone === 'true',
+    m2posone: localStorage.m2posone === 'true',
+    
+    
     layer1: localStorage.layer1,
     layer2: localStorage.layer2,
     layer3: localStorage.layer3,
@@ -133,6 +140,12 @@ function importdata($data){
   
   localStorage.invertanimationdelay = options.invertanimationdelay;
   localStorage.changeallnumbers = options.changeallnumbers;
+  
+  localStorage.numberontop = options.numberontop;
+  localStorage.h1posone = options.h1posone;
+  localStorage.h2posone = options.h2posone;
+  localStorage.m1posone = options.m1posone;
+  localStorage.m2posone = options.m2posone;
   
   
   localStorage.layer1 = options.layer1;
@@ -328,6 +341,28 @@ function loadOptions() {
   
   var $Layerlist = $('#Layerlist');
   var $list = Layerlist.getElementsByTagName('li');
+  
+  
+  
+  var $numberontopCheckbox = $('#numberontopCheckbox');
+  var $h1posonepic = $('#h1posonepic');
+  var $h2posonepic = $('#h2posonepic');
+  var $m1posonepic = $('#m1posonepic');
+  var $m2posonepic = $('#m2posonepic');
+  
+  var $enegyPicker = $('#enegyPicker');
+  var $l1funcpic = $('#l1funcpic');
+  var $l2funcpic = $('#l2funcpic');
+  var $l3funcpic = $('#l3funcpic');
+  var $extensionfontColorPicker = $('#extensionfontColorPicker');
+  var $extensionbackColorPicker = $('#extensionbackColorPicker');
+  
+  
+  
+
+  
+  
+  
 
   layerload($list[0],localStorage.layer1);
   layerload($list[1],localStorage.layer2);
@@ -389,6 +424,20 @@ function loadOptions() {
     
     $invertanimationdelaycheckbox[0].checked = localStorage.invertanimationdelay === 'true';
     $changeallnumberscheckbox[0].checked = localStorage.changeallnumbers === 'true';
+    
+    $numberontopCheckbox[0].checked = localStorage.numberontop === 'true';
+    $h1posonepic[0].value = localStorage.h1posone;
+    $h2posonepic[0].value = localStorage.h2posone;
+    $m1posonepic[0].value = localStorage.m1posone;
+    $m2posonepic[0].value = localStorage.m2posone;
+    
+    $enegyPicker[0].value = localStorage.enegy;
+    $l1funcpic[0].value = localStorage.l1func;
+    $l2funcpic[0].value = localStorage.l2func;
+    $l3funcpic[0].value = localStorage.l3func;
+    $extensionfontColorPicker[0].value = localStorage.extensionfontColor;
+    $extensionbackColorPicker[0].value = localStorage.extensionbackColor;
+  
   }else{
     importdata('{"backgroundColor":"0x000000","twentyFourHourFormat":false,"h1dir":"8","h1numberColor":"0xFFFFFF","h1bandColor":"0x00AAFF","h1x":"40","h1y":"32","h1delay":"500","h1duration":"1000","h1outline":false,"h1line":false,"h1linesColor":"0x0055FF","h2trans":false,"h2dir":"7","h2numberColor":"0xFFFFFF","h2bandColor":"0x0055FF","h2x":"90","h2y":"32","h2delay":"0","h2duration":"1000","h2outline":false,"h2line":false,"h2linesColor":"0x000000","m1trans":false,"m1dir":"6","m1numberColor":"0xFFFFFF","m1bandColor":"0x00ff00","m1x":"40","m1y":"97","m1delay":"600","m1duration":"1000","m1outline":false,"m1line":false,"m1linesColor":"0x000000","m2trans":false,"m2dir":"7","m2numberColor":"0xFFFFFF","m2bandColor":"0x009600","m2x":"90","m2y":"97","m2delay":"100","m2duration":"1000","m2outline":false,"m2line":false,"m2linesColor":"0x000000","invertanimationdelay":true,"changeallnumbers":true,"layer1":"1","layer2":"2","layer3":"3","layer4":"4"}');
   }
@@ -450,6 +499,22 @@ function getAndStoreConfigData() {
   var $invertanimationdelaycheckbox = $('#invertanimationdelaycheckbox');
   var $changeallnumberscheckbox = $('#changeallnumberscheckbox');
   
+  
+  var $numberontopCheckbox = $('#numberontopCheckbox');
+  var $h1posonepic = $('#h1posonepic');
+  var $h2posonepic = $('#h2posonepic');
+  var $m1posonepic = $('#m1posonepic');
+  var $m2posonepic = $('#m2posonepic');
+  
+  var $enegyPicker = $('#enegyPicker');
+  var $l1funcpic = $('#l1funcpic');
+  var $l2funcpic = $('#l2funcpic');
+  var $l3funcpic = $('#l3funcpic');
+  var $extensionfontColorPicker = $('#extensionfontColorPicker');
+  var $extensionbackColorPicker = $('#extensionbackColorPicker');
+
+  
+  
   var $Layerlist = $('#Layerlist');
   $list = Layerlist.getElementsByTagName('li');
 
@@ -505,6 +570,21 @@ function getAndStoreConfigData() {
     m2outline: $m2outlineCheckbox[0].checked,
     m2line: $m2lineCheckbox[0].checked,
     m2linesColor: $m2linesColorPicker.val(),   
+    
+    
+    numberontop: $numberontopCheckbox[0].checked,
+    h1posone: $h1posonepic.val(),
+    h2posone: $h2posonepic.val(),
+    m1posone: $m1posonepic.val(),
+    m2posone: $m2posonepic.val(),
+    
+    enegy: $enegyPicker.val(),
+    l1func: $l1funcpic.val(),
+    l2func: $l2funcpic.val(),
+    l3func: $l3funcpic.val(),
+    
+    extensionfontColor: $extensionfontColorPicker.val(),
+    extensionbackColor: $extensionbackColorPicker.val(),
     
     invertanimationdelay: $invertanimationdelaycheckbox[0].checked,
     changeallnumbers: $changeallnumberscheckbox[0].checked,
@@ -566,6 +646,24 @@ function getAndStoreConfigData() {
   localStorage.m2outline = options.m2outline;
   localStorage.m2line = options.m2line;
   localStorage.m2linesColor = options.m2linesColor;
+  
+  
+  
+  
+  localStorage.numberontop = options.numberontop;
+  localStorage.h1posone = options.h1posone;
+  localStorage.h2posone = options.h2posone;
+  localStorage.m1posone = options.m1posone;
+  localStorage.m2posone = options.m2posone;
+  
+  localStorage.enegy = options.enegy;
+  localStorage.l1func = options.l1func;
+  localStorage.l2func = options.l2func;
+  localStorage.l3func = options.l3func;
+  localStorage.extensionfontColor = options.extensionfontColor;
+  localStorage.extensionfontColor = options.extensionfontColor;
+  
+  
   
   localStorage.invertanimationdelay = options.invertanimationdelay;
   localStorage.changeallnumbers = options.changeallnumbers;
