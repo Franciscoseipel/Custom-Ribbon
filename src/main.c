@@ -1,3 +1,11 @@
+/*
+TODO:
+-website anpassen
+-des neu laden
+-mehr des
+*/
+
+
 #include <pebble.h>
 
 #define KEY_BACKGROUND_COLOR 0
@@ -64,7 +72,18 @@
 #define KEY_TEMPERATURE 51
 #define KEY_CONDITIONS 52
 
+#define KEY_numberontop 53
+#define KEY_h1posone 54
+#define KEY_h2posone 55 
+#define KEY_m1posone 56 
+#define KEY_m2posone 57 
 
+#define KEY_enegy 58
+#define KEY_l1func 59 
+#define KEY_l2func 60 
+#define KEY_l3func 61 
+#define KEY_extensionfontColor 62
+#define KEY_extensionbackColor 63
 
 
 typedef struct lines lines;
@@ -78,6 +97,16 @@ static TextLayer *s_weather_layer;
 static TextLayer *s_health_layer;
 static Layer *s_battery_layer;
 static int s_battery_level;
+
+//1 date , 2 weather, 3 steps, 4 sleep , 99=none
+//layer 1 none&1
+//layer 2 none&2
+//layer 3 none&3&4
+int layer[3]={1,2,3};
+bool healthon=1;
+bool weateron=1;
+
+AppTimer *outgoing;
 
 static GPath *s_path[8];
 static Layer *s_path_layer[8];
@@ -137,6 +166,22 @@ int an=0;
 int initan=1;
 bool outlines[4] = {false,false,false,false};
 bool line[4] = {false,false,false,false};
+
+int changenumber=0;
+
+int energy;
+
+//energy saving
+//bool minutetick = 0;
+bool noanimation = 0;
+bool noextension = 0;
+bool slidein=0; //unimplemented
+bool taplimiter=0;
+
+//
+int taps = 0;
+int minute_taps;
+
 
 
 bool numberontop = 1;
@@ -1083,7 +1128,7 @@ static void health_handler(HealthEventType event, void *context) {
   // Which type of event occured?
   switch(event) {
     case HealthEventSignificantUpdate:
-    heath_update();
+   if(healthon==1) heath_update();
       APP_LOG(APP_LOG_LEVEL_INFO, 
               "New HealthService HealthEventSignificantUpdate event");
       break;
@@ -1353,6 +1398,107 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
     color_lines[3] = m2_lines_Color_t->value->int32;
     persist_write_int(KEY_m2linesColor, color_lines[3]);
   } 
+  //+++++++++++++++++++++++++++++++++++++
+  Tuple *number_on_top_t = dict_find(iter, KEY_numberontop);
+  
+  if (number_on_top_t) {
+    numberontop = number_on_top_t->value->int8;
+    persist_write_int(KEY_numberontop, numberontop +1);
+  }
+  
+  Tuple *h1posone_t = dict_find(iter, KEY_h1posone);
+  
+  if (h1posone_t) {
+     onepos[0] = (h1posone_t->value->int32);
+    persist_write_int(KEY_h1posone, onepos[0]);
+  }
+  
+    Tuple *h2posone_t = dict_find(iter, KEY_h2posone);
+  
+  if (h2posone_t) {
+     onepos[1] = (h2posone_t->value->int32);
+    persist_write_int(KEY_h2posone, onepos[1]);
+  }
+  
+  Tuple *m1posone_t = dict_find(iter, KEY_m1posone);
+  
+  if (m1posone_t) {
+     onepos[2] = (m1posone_t->value->int32);
+    persist_write_int(KEY_m1posone, onepos[2]);
+  }
+  
+  Tuple *m2posone_t = dict_find(iter, KEY_m2posone);
+  
+  if (m2posone_t) {
+     onepos[3] = (m2posone_t->value->int32);
+    persist_write_int(KEY_m2posone, onepos[3]);
+  }
+  
+  
+    Tuple *enegy_t = dict_find(iter, KEY_enegy);
+  
+  if (enegy_t) {
+     energy = (enegy_t->value->int32);
+    persist_write_int(KEY_enegy, energy);
+  if(energy>3){
+    taplimiter = 1;
+    energy=energy-4;
+  }
+  if(energy>1){
+    noextension = 1;
+    energy=energy-2;
+  }
+  if(energy>0){
+    noanimation = 1;
+  }
+    
+
+  }
+  
+      Tuple *l1func_t = dict_find(iter, KEY_l1func);
+  
+  if (l1func_t) {
+     layer[0] = (l1func_t->value->int32);
+    persist_write_int(KEY_l1func, layer[0]);
+  }
+  
+      Tuple *l2func_t = dict_find(iter, KEY_l2func);
+  
+  if (l2func_t) {
+     layer[1] = (l2func_t->value->int32);
+    persist_write_int(KEY_l2func, layer[1]);
+  }
+  
+      Tuple *l3func_t = dict_find(iter, KEY_l3func);
+  
+  if (l3func_t) {
+     layer[2] = (l3func_t->value->int32);
+    persist_write_int(KEY_l3func, layer[2]);
+  }
+  
+  Tuple *extension_font_Color_t = dict_find(iter, KEY_extensionfontColor);
+  
+  if (extension_font_Color_t) {
+     color_extension_font = (extension_font_Color_t->value->int32);
+    persist_write_int(KEY_extensionfontColor, color_extension_font);
+  }
+  
+  Tuple *extension_back_Color_t = dict_find(iter, KEY_extensionbackColor);
+  
+  if (extension_back_Color_t) {
+     color_extension = (extension_back_Color_t->value->int32);
+    persist_write_int(KEY_extensionbackColor, color_extension);
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   //rest
  
   Tuple *layer1_t = dict_find(iter, KEY_layer1);
@@ -1423,7 +1569,7 @@ if(temp_tuple && conditions_tuple) {
   snprintf(conditions_buffer, sizeof(conditions_buffer), "%s", conditions_tuple->value->cstring);
   // Assemble full string and display
 snprintf(weather_layer_buffer, sizeof(weather_layer_buffer), "%s, %s", temperature_buffer, conditions_buffer);
-  text_layer_set_text(s_weather_layer, weather_layer_buffer);
+  if(noextension==0&&weateron==1)text_layer_set_text(s_weather_layer, weather_layer_buffer);
 }else{
   
  
@@ -1491,13 +1637,18 @@ static void animate_extension(Layer *layer){
 }
 
 static void accel_tap_handler(AccelAxisType axis, int32_t direction){
+  
   APP_LOG(APP_LOG_LEVEL_DEBUG, "TAP");
-  if(extension_animation==0){
+  if(taplimiter==1){
+    taps++; 
+  }
+  if(extension_animation==0&&taps<6){
+    
     //
     layer_mark_dirty(s_battery_layer);
     
     
-  heath_update();
+  if(healthon==1)heath_update();
     
       time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
@@ -1508,7 +1659,6 @@ static void accel_tap_handler(AccelAxisType axis, int32_t direction){
       strftime(s_buffer, sizeof(s_buffer), "%a %d %b", tick_time);
 
   // Show the date
-  //TODO: actualisirungsrate
   text_layer_set_text(s_date_layer, s_buffer);
     
     //animate
@@ -2027,6 +2177,106 @@ static void annimation(int l,int rev){
       break;
   }
 }
+
+static void outgoing_callback(){
+  if(extension_animation==0) animation_unschedule_all();
+  /*if(change_all_numbers==1||(s_buffer[4]-'0'==9&&s_buffer[3]-'0'==5&&(s_buffer[1]-'0'==9||s_buffer[1]-'0'==1||s_buffer[1]-'0'==3)))annimation(0,0);
+  if(change_all_numbers==1||(s_buffer[4]-'0'==9&&s_buffer[3]-'0'==5)) annimation(1,0);
+  if(change_all_numbers==1||(s_buffer[4]-'0'==9))annimation(2,0);*/
+  //int *g = l;
+  if(changenumber>2)annimation(0,0);
+  if(changenumber>1)annimation(1,0);
+  if(changenumber>0)annimation(2,0);
+  annimation(3,0);
+}
+
+static void update_time_minute() {
+  taps=0;
+  
+  time_t temp = time(NULL);
+  struct tm *tick_time = localtime(&temp);
+
+  // Write the current hours and minutes into a buffer
+  static char s_buffer[16];
+  strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ?
+                                          "%H:%M" : "%I:%M", tick_time);
+  
+  int seconds = tick_time->tm_sec;
+  
+  //if(seconds == 0 || initan == 1){
+  //int l = 0;
+  //int h= s_buffer[0]-'0';
+  time_switch(0,s_buffer[0]-'0');
+  time_switch(1,s_buffer[1]-'0');
+  time_switch(2,s_buffer[3]-'0');
+  time_switch(3,s_buffer[4]-'0');
+  
+  text_layer_set_text(s_time_layer, s_buffer);
+  //}
+  //second berechnung
+  int sec=1000;
+  if(sec < delay[0]+duration[0])sec=delay[0]+duration[0];
+  if(sec < delay[1]+duration[1])sec=delay[1]+duration[1];
+  if(sec < delay[2]+duration[2])sec=delay[2]+duration[2];
+  if(sec < delay[3]+duration[3])sec=delay[3]+duration[3];
+  max_delay=sec;
+  //sec = (sec / 1000)+2;
+  //
+  //TODO: 24 or 12 hour
+  /*if(seconds == (60-sec)){
+   if(extension_animation==0) animation_unschedule_all();
+  if(change_all_numbers==1||(s_buffer[4]-'0'==9&&s_buffer[3]-'0'==5&&(s_buffer[1]-'0'==9||s_buffer[1]-'0'==1||s_buffer[1]-'0'==3)))annimation(0,0);
+  if(change_all_numbers==1||(s_buffer[4]-'0'==9&&s_buffer[3]-'0'==5)) annimation(1,0);
+  if(change_all_numbers==1||(s_buffer[4]-'0'==9))annimation(2,0);
+  annimation(3,0);
+  */ //}
+  
+  //int vorubergehen = initan; //kann später gelöscht werden
+  
+  
+  if(noanimation == 0 || initan == 1){
+  if(extension_animation==0)  animation_unschedule_all();
+  annimation(0,1);
+  annimation(1,1);
+  annimation(2,1);
+  annimation(3,1);
+  
+  }
+  
+  
+  
+  if(noanimation==0){
+  
+  if(change_all_numbers==1){
+    changenumber = 3;
+  
+  }else{
+      tick_time->tm_sec += 60;
+  mktime(tick_time);
+  strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ?
+                                         "%H:%M" : "%I:%M", tick_time);
+    
+    
+   changenumber = 0;
+  if(s_buffer[4]-'0'==0){
+    changenumber = 1;
+    if(s_buffer[3]-'0'==0){
+      changenumber = 2;
+      if(s_buffer[1]-'0'==0){
+        changenumber = 3;
+      }
+    }
+  } 
+  }
+  
+  
+  int timert = 59000-max_delay-(seconds*1000);
+    if(initan==1)timert=timert-1000;
+  
+  if(timert>0)outgoing = app_timer_register(timert, outgoing_callback, (void*)1);
+  }
+  initan=0;
+}
 static void update_time() {
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
@@ -2104,7 +2354,6 @@ static void update_time() {
   //date
   // Copy date into buffer from tm structure
   strftime(s_buffer, sizeof(s_buffer), "%a %d %b", tick_time);
-
   // Show the date
   //TODO: actualisirungsrate
   text_layer_set_text(s_date_layer, s_buffer);
@@ -2113,9 +2362,12 @@ static void update_time() {
   
 }
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-update_time();
+//update_time();
+  update_time_minute();
+  
+  
   // Get weather update every 30 minutes
-if(tick_time->tm_min % 30 == 0) {
+if(noextension==0&&weateron==1)if(tick_time->tm_min % 30 == 0) {
   // Begin dictionary
   DictionaryIterator *iter;
   app_message_outbox_begin(&iter);
@@ -2211,22 +2463,29 @@ static void load_number(Layer *window_layer){
   layer_add_child(window_layer, s_path_layer[n]);
 }
 static void load_extension(Layer *window_layer){
+  if(layer[1]==99)weateron=0;
   s_path_layer_extension  = layer_create( GRect( -1 , PBL_IF_ROUND_ELSE(180, 168) , PBL_IF_ROUND_ELSE(181, 145) , 85) );
   layer_set_update_proc(s_path_layer_extension, layer_update_proc_extension);
   s_path_extension = gpath_create(&extension_path);
   layer_add_child(window_layer, s_path_layer_extension);  
+  int layerstart=0;
+  //if(layer[0]==1){
   //date
-  s_date_layer = text_layer_create(GRect(1, 0, 144, 30));
+  s_date_layer = text_layer_create(GRect(1, layerstart, 144, 30));
   text_layer_set_text_color(s_date_layer, GColorFromHEX(color_extension_font));
   text_layer_set_background_color(s_date_layer, GColorClear);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
   text_layer_set_text(s_date_layer, "Wed 10 Jan");
   text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_date_layer));
+    layerstart=layerstart + 24;
+  //}
+  
+  if(weateron==1){
   //wheater
   // Create temperature Layer
   s_weather_layer = text_layer_create(
-  GRect(0, 24, 144, 25));
+  GRect(0, layerstart, 144, 25));
 
   // Style the text
   text_layer_set_background_color(s_weather_layer, GColorClear);
@@ -2235,14 +2494,14 @@ static void load_extension(Layer *window_layer){
   text_layer_set_text_alignment(s_weather_layer, GTextAlignmentCenter);
   text_layer_set_text(s_weather_layer, "Loading...");
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_weather_layer));
+  layerstart=layerstart+21;
   
-  
-  
+  }
     
-
+  if(healthon==1){
   
    s_health_layer = text_layer_create(
-  GRect(0, 45, 144, 25));
+  GRect(0, layerstart, 144, 25));
 
   // Style the text
   text_layer_set_background_color(s_health_layer, GColorClear);
@@ -2252,7 +2511,7 @@ static void load_extension(Layer *window_layer){
   //text_layer_set_text(s_health_layer, s_buffer);
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_health_layer));            
      
-  
+  }
   
   // Create battery meter Layer
 s_battery_layer = layer_create(GRect(0, 3, 144, 2));
@@ -2491,10 +2750,59 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "layer3:%d",order[3] );
   }
   
-  //+
+  //++
+  
+  if (persist_read_bool(KEY_numberontop)) {
+    numberontop = persist_read_bool(KEY_numberontop)-1;
+  }
+  if (persist_read_int(KEY_h1posone)) {
+    onepos[0] = persist_read_int(KEY_h1posone);
+  }
+  if (persist_read_int(KEY_h2posone)) {
+    onepos[1] = persist_read_int(KEY_h2posone);
+  }
+  if (persist_read_int(KEY_m1posone)) {
+    onepos[2] = persist_read_int(KEY_m1posone);
+  }
+  if (persist_read_int(KEY_m2posone)) {
+    onepos[3] = persist_read_int(KEY_m2posone);
+  }
+  
+  if (persist_read_int(KEY_enegy)) {
+    energy = persist_read_int(KEY_enegy);
+    if(energy>3){
+    taplimiter = 1;
+    energy=energy-4;
+  }
+  if(energy>1){
+    noextension = 1;
+    energy=energy-2;
+  }
+  if(energy>0){
+    noanimation = 1;
+  }
+  }
+  if (persist_read_int(KEY_l1func)) {
+    layer[0] = persist_read_int(KEY_l1func);
+  }
+  if (persist_read_int(KEY_l2func)) {
+    layer[1] = persist_read_int(KEY_l2func);
+  }
+  if (persist_read_int(KEY_l3func)) {
+    layer[2] = persist_read_int(KEY_l3func);
+  }
+  if (persist_read_int(KEY_extensionfontColor)) {
+    color_extension_font = persist_read_int(KEY_extensionfontColor);
+  }
+  if (persist_read_int(KEY_extensionbackColor)) {
+    color_extension = persist_read_int(KEY_extensionbackColor);
+  }
   
   
-    
+  
+  //-- 
+  
+  
   GRect bounds = layer_get_bounds(window_layer);
   //band
   n=order[3];
@@ -2510,6 +2818,16 @@ static void main_window_load(Window *window) {
   load_band(window_layer);
   if(numberontop==0){load_number(window_layer);}
   
+  
+  
+  
+  
+  
+  //(())
+  
+  //(())
+  
+  
   //number
   if(numberontop==1){
     n=0;
@@ -2521,7 +2839,9 @@ static void main_window_load(Window *window) {
     n=3;
     load_number(window_layer);
   }
-  load_extension(window_layer);
+  
+  
+  if(noextension==0)load_extension(window_layer);
   
   
   
@@ -2544,11 +2864,9 @@ static void main_window_load(Window *window) {
   HealthMetric metric = HealthMetricStepCount;
   time_t start = time_start_of_today();
   time_t end = time(NULL);
-
 // Check the metric has data available for today
   HealthServiceAccessibilityMask mask = health_service_metric_accessible(metric, 
   start, end);
-
   if(mask & HealthServiceAccessibilityMaskAvailable) {
   // Data is available!
   APP_LOG(APP_LOG_LEVEL_INFO, "Steps today: %d", 
@@ -2581,6 +2899,13 @@ static void main_window_unload(Window *window) {
   gpath_destroy(s_path_band[1]);
   gpath_destroy(s_path_band[2]);
   gpath_destroy(s_path_band[3]);
+  
+  text_layer_destroy(s_date_layer);
+  text_layer_destroy(s_weather_layer);
+  text_layer_destroy(s_health_layer);
+  layer_destroy(s_battery_layer);
+  layer_destroy(s_path_layer_extension);
+  gpath_destroy(s_path_extension);
 }
 static void init() {
   // pebble round?
@@ -2598,8 +2923,8 @@ static void init() {
   s_main_window = window_create();
 
   // Register with TickTimerService
-//tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
-  tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
+tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+  //tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
   
   // Set handlers to manage the elements inside the Window
   window_set_window_handlers(s_main_window, (WindowHandlers) {
@@ -2619,23 +2944,37 @@ static void init() {
   window_stack_push(s_main_window, true);
   
   //Subscribe to AccelerometerService
-  accel_tap_service_subscribe(accel_tap_handler);
+  if(noextension==0){accel_tap_service_subscribe(accel_tap_handler);}
   
   app_message_register_inbox_received(inbox_received_handler);
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
   
-  battery_state_service_subscribe(battery_callback);
+  if(noextension==0)battery_state_service_subscribe(battery_callback);
   
-  battery_callback(battery_state_service_peek());
+  if(noextension==0)battery_callback(battery_state_service_peek());
   //test
-  /*
-  #if defined(PBL_HEALTH)
+  healthon=PBL_IF_HEALTH_ELSE(1,0);
+  
+  if (persist_read_int(KEY_l3func)) {
+    layer[2] = persist_read_int(KEY_l3func);
+    if(layer[2]==99)healthon=0;
+  }
+   if (persist_read_int(KEY_l2func)) {
+    layer[1] = persist_read_int(KEY_l2func);
+    if(layer[1]==99)weateron=0;
+  }
+  //healthon=0;
+  //weateron=0;
+  
+/*  #if defined(PBL_HEALTH)
 // Attempt to subscribe 
 if(!health_service_events_subscribe(health_handler, NULL)) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Health not available!");
+  healthon=0;
 }
 #else
 APP_LOG(APP_LOG_LEVEL_ERROR, "Health not available!");
+  healthon=0;
 #endif
   //
   */
