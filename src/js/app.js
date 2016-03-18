@@ -146,6 +146,21 @@ Pebble.addEventListener('webviewclosed', function(e) {
       invertanimationdelay: configData.invertanimationdelay,
       changeallnumbers: configData.changeallnumbers,
       
+      
+      numberontop: configData.numberontop,
+      h1posone: parseInt(configData.h1posone, 10),
+      h2posone: parseInt(configData.h2posone, 10),
+      m1posone: parseInt(configData.m1posone, 10),
+      m2posone: parseInt(configData.m2posone, 10),
+      
+      enegy: parseInt(configData.enegy, 10),
+      l1func: parseInt(configData.l1func, 10),
+      l2func: parseInt(configData.l2func, 10),
+      l3func: parseInt(configData.l3func, 10),
+      extensionfontColor: parseInt(configData.extensionfontColor, 16),
+      extensionbackColor: parseInt(configData.extensionbackColor, 16),
+      
+      
       layer1: parseInt(configData.layer1, 10),
       layer2: parseInt(configData.layer2, 10),
       layer3: parseInt(configData.layer3, 10),
