@@ -1,3 +1,11 @@
+/*
+TODO:
+-website anpassen
+-des neu laden
+-mehr des
+*/
+
+
 #include <pebble.h>
 
 #define KEY_BACKGROUND_COLOR 0
@@ -90,9 +98,13 @@ static TextLayer *s_health_layer;
 static Layer *s_battery_layer;
 static int s_battery_level;
 
-//1 date , 2 weather, 3 steps, 4 sleep, 99=none
+//1 date , 2 weather, 3 steps, 4 sleep , 99=none
+//layer 1 none&1
+//layer 2 none&2
+//layer 3 none&3&4
 int layer[3]={1,2,3};
-bool healthon=0;
+bool healthon=1;
+bool weateron=1;
 
 AppTimer *outgoing;
 
@@ -1557,7 +1569,7 @@ if(temp_tuple && conditions_tuple) {
   snprintf(conditions_buffer, sizeof(conditions_buffer), "%s", conditions_tuple->value->cstring);
   // Assemble full string and display
 snprintf(weather_layer_buffer, sizeof(weather_layer_buffer), "%s, %s", temperature_buffer, conditions_buffer);
-  if(noextension==0)text_layer_set_text(s_weather_layer, weather_layer_buffer);
+  if(noextension==0&&weateron==1)text_layer_set_text(s_weather_layer, weather_layer_buffer);
 }else{
   
  
@@ -1625,11 +1637,13 @@ static void animate_extension(Layer *layer){
 }
 
 static void accel_tap_handler(AccelAxisType axis, int32_t direction){
+  
   APP_LOG(APP_LOG_LEVEL_DEBUG, "TAP");
   if(taplimiter==1){
     taps++; 
   }
   if(extension_animation==0&&taps<6){
+    
     //
     layer_mark_dirty(s_battery_layer);
     
@@ -2340,7 +2354,6 @@ static void update_time() {
   //date
   // Copy date into buffer from tm structure
   strftime(s_buffer, sizeof(s_buffer), "%a %d %b", tick_time);
-
   // Show the date
   //TODO: actualisirungsrate
   text_layer_set_text(s_date_layer, s_buffer);
@@ -2354,7 +2367,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   
   
   // Get weather update every 30 minutes
-if(noextension==0)if(tick_time->tm_min % 30 == 0) {
+if(noextension==0&&weateron==1)if(tick_time->tm_min % 30 == 0) {
   // Begin dictionary
   DictionaryIterator *iter;
   app_message_outbox_begin(&iter);
@@ -2450,22 +2463,29 @@ static void load_number(Layer *window_layer){
   layer_add_child(window_layer, s_path_layer[n]);
 }
 static void load_extension(Layer *window_layer){
+  if(layer[1]==99)weateron=0;
   s_path_layer_extension  = layer_create( GRect( -1 , PBL_IF_ROUND_ELSE(180, 168) , PBL_IF_ROUND_ELSE(181, 145) , 85) );
   layer_set_update_proc(s_path_layer_extension, layer_update_proc_extension);
   s_path_extension = gpath_create(&extension_path);
   layer_add_child(window_layer, s_path_layer_extension);  
+  int layerstart=0;
+  //if(layer[0]==1){
   //date
-  s_date_layer = text_layer_create(GRect(1, 0, 144, 30));
+  s_date_layer = text_layer_create(GRect(1, layerstart, 144, 30));
   text_layer_set_text_color(s_date_layer, GColorFromHEX(color_extension_font));
   text_layer_set_background_color(s_date_layer, GColorClear);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
   text_layer_set_text(s_date_layer, "Wed 10 Jan");
   text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_date_layer));
+    layerstart=layerstart + 24;
+  //}
+  
+  if(weateron==1){
   //wheater
   // Create temperature Layer
   s_weather_layer = text_layer_create(
-  GRect(0, 24, 144, 25));
+  GRect(0, layerstart, 144, 25));
 
   // Style the text
   text_layer_set_background_color(s_weather_layer, GColorClear);
@@ -2474,14 +2494,14 @@ static void load_extension(Layer *window_layer){
   text_layer_set_text_alignment(s_weather_layer, GTextAlignmentCenter);
   text_layer_set_text(s_weather_layer, "Loading...");
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_weather_layer));
+  layerstart=layerstart+21;
   
-  
-  
+  }
     
-
+  if(healthon==1){
   
    s_health_layer = text_layer_create(
-  GRect(0, 45, 144, 25));
+  GRect(0, layerstart, 144, 25));
 
   // Style the text
   text_layer_set_background_color(s_health_layer, GColorClear);
@@ -2491,7 +2511,7 @@ static void load_extension(Layer *window_layer){
   //text_layer_set_text(s_health_layer, s_buffer);
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_health_layer));            
      
-  
+  }
   
   // Create battery meter Layer
 s_battery_layer = layer_create(GRect(0, 3, 144, 2));
@@ -2844,11 +2864,9 @@ static void main_window_load(Window *window) {
   HealthMetric metric = HealthMetricStepCount;
   time_t start = time_start_of_today();
   time_t end = time(NULL);
-
 // Check the metric has data available for today
   HealthServiceAccessibilityMask mask = health_service_metric_accessible(metric, 
   start, end);
-
   if(mask & HealthServiceAccessibilityMaskAvailable) {
   // Data is available!
   APP_LOG(APP_LOG_LEVEL_INFO, "Steps today: %d", 
@@ -2881,6 +2899,13 @@ static void main_window_unload(Window *window) {
   gpath_destroy(s_path_band[1]);
   gpath_destroy(s_path_band[2]);
   gpath_destroy(s_path_band[3]);
+  
+  text_layer_destroy(s_date_layer);
+  text_layer_destroy(s_weather_layer);
+  text_layer_destroy(s_health_layer);
+  layer_destroy(s_battery_layer);
+  layer_destroy(s_path_layer_extension);
+  gpath_destroy(s_path_extension);
 }
 static void init() {
   // pebble round?
@@ -2929,7 +2954,17 @@ tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   if(noextension==0)battery_callback(battery_state_service_peek());
   //test
   healthon=PBL_IF_HEALTH_ELSE(1,0);
+  
+  if (persist_read_int(KEY_l3func)) {
+    layer[2] = persist_read_int(KEY_l3func);
+    if(layer[2]==99)healthon=0;
+  }
+   if (persist_read_int(KEY_l2func)) {
+    layer[1] = persist_read_int(KEY_l2func);
+    if(layer[1]==99)weateron=0;
+  }
   //healthon=0;
+  //weateron=0;
   
 /*  #if defined(PBL_HEALTH)
 // Attempt to subscribe 
