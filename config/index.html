@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <link rel='stylesheet' type='text/css' href='/pebble/config/slate-0.0.3/dist/css/slate.min.css'>
-  <link rel='stylesheet' type='text/css' href='/pebble/config/css/style.css'>
+  <link rel='stylesheet' type='text/css' href='slate-0.0.3/dist/css/slate.min.css'>
+  <link rel='stylesheet' type='text/css' href='css/style.css'>
 </head>
 <body>
   <div class='item-container'>
@@ -13,7 +13,7 @@
   <div class='item-container'>
     <div class='item-container-content'>
       <div class='item' style="text-align: center">
-        <a href="/pebble/config/themes.html" style="text-align: center">- Click here for Themes -</a>
+        <a href="themes/themes.html" style="text-align: center">- Click here for Themes -</a>
       </div>
     </div>
   </div>
@@ -22,22 +22,63 @@
   
  <!--<a href="JavaScript:png(1)">
     <img src="pic/1.png" id="png1" alt="1" style="width:44px;height:68px;"></a> --> 
+    
+    
+    
+    <!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddd -->  
+     <div class='item-container'>
+      
+  <div class='item-container-header'>Slide in extension</div>
+    <div class='item-container-content'>
+      <div class="item-container-footer">
+          General
+      </div>
+      </div>
+      <div class='item-container-content'>
+      
+      <label class='item'>
+        No Animation
+        <input id='noanimationCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      
+      <label class='item'>
+        No extension
+        <input id='noextensionCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      
+      
+      <label class='item'>
+        taplimiter
+        <input id='taplimiterCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      
+
+      
+      
+      
+      
+      </div>
+      </div>
+    
+    
+    
+    
+  
+  <!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
   
   
-  
-  
-  
+  <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->  
   <div class='item-container'>
       
   <div class='item-container-header'>Slide in extension</div>
     <div class='item-container-content'>
       
-            <label class="item">
+    <!--         <label class="item">
         Position
         <div class="item-input-wrapper">
           <input id='enegyPicker' type="number" class="item-input" name="h1xPicker" placeholder="X" value="40">
         </div>
-      </label>
+      </label>--> 
       
       
       
@@ -45,29 +86,31 @@
         First Layer
         <select id='l1funcpic' name="l1funcpic" dir='rtl' class="item-select">
           <option class="item-select-option" value="1" selected>Date</option>
-          <option class="item-select-option" value="2">Weather</option>
-          <option class="item-select-option" value="3">Steps</option>
-          <option class="item-select-option" value="4">Sleep</option>
+          <!--<option class="item-select-option" value="2">Weather</option>--> 
+          <!--<option class="item-select-option" value="3">Steps</option>--> 
+          <!--<option class="item-select-option" value="4">Sleep</option>--> 
         </select>
       </label>
       
       <label class="item">
         Second Layer
         <select id='l2funcpic' name="l2funcpic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1" >Date</option>
+          <!--<option class="item-select-option" value="1" >Date</option>--> 
           <option class="item-select-option" value="2" selected>Weather</option>
-          <option class="item-select-option" value="3">Steps</option>
-          <option class="item-select-option" value="4">Sleep</option>
+          <!--<option class="item-select-option" value="3">Steps</option>--> 
+          <!--<option class="item-select-option" value="4">Sleep</option>--> 
+          <option class="item-select-option" value="99">off</option>
         </select>
       </label>
       
       <label class="item">
         Third Layer
         <select id='l3funcpic' name="l3funcpic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1">Date</option>
-          <option class="item-select-option" value="2">Weather</option>
+          <!--<option class="item-select-option" value="1">Date</option>--> 
+          <!--<option class="item-select-option" value="2">Weather</option>--> 
           <option class="item-select-option" value="3" selected>Steps</option>
-          <option class="item-select-option" value="4">Sleep</option>
+          <!--<option class="item-select-option" value="4">Sleep</option>--> 
+          <option class="item-select-option" value="99">off</option>
         </select>
       </label>
       <label class='item'>
@@ -89,7 +132,7 @@
     </div>
   <div class='item-container'>    
       
-      
+    <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->   
       
 
   <!-- +++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -322,9 +365,9 @@
       <label class="item">
         Number 1 orientation
         <select id='h1posonepic' name="h1posonepic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1">Left</option>
-          <option class="item-select-option" value="2">Centred</option>
-          <option class="item-select-option" value="3" selected>Right</option>
+          <option class="item-select-option" value="2">Left</option>
+          <option class="item-select-option" value="1">Centred</option>
+          <option class="item-select-option" value="0" selected>Right</option>
         </select>
       </label>
       
@@ -357,9 +400,9 @@
       <label class="item">
         Number 1 orientation
         <select id='h2posonepic' name="h2posonepic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1">Left</option>
-          <option class="item-select-option" value="2">Centred</option>
-          <option class="item-select-option" value="3" selected>Right</option>
+          <option class="item-select-option" value="2">Left</option>
+          <option class="item-select-option" value="1">Centred</option>
+          <option class="item-select-option" value="0" selected>Right</option>
         </select>
       </label>
       
@@ -391,9 +434,9 @@
       <label class="item">
         Number 1 orientation
         <select id='m1posonepic' name="m1posonepic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1">Left</option>
-          <option class="item-select-option" value="2">Centred</option>
-          <option class="item-select-option" value="3" selected>Right</option>
+          <option class="item-select-option" value="2">Left</option>
+          <option class="item-select-option" value="1">Centred</option>
+          <option class="item-select-option" value="0" selected>Right</option>
         </select>
       </label>
       
@@ -425,9 +468,9 @@
       <label class="item">
         Number 1 orientation
         <select id='m2posonepic' name="m2posonepic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1">Left</option>
-          <option class="item-select-option" value="2">Centred</option>
-          <option class="item-select-option" value="3" selected>Right</option>
+          <option class="item-select-option" value="2">Left</option>
+          <option class="item-select-option" value="1">Centred</option>
+          <option class="item-select-option" value="0" selected>Right</option>
         </select>
       </label>
       
@@ -767,7 +810,7 @@
       <input id='submitButton' type='button' class='item-button' value='SUBMIT'>
     </div>
   </div>
-  <script src='/pebble/config/slate-0.0.3/dist/js/slate.min.js'></script>
-  <script src='/pebble/config/js/main.js'></script>
+  <script src='slate-0.0.3/dist/js/slate.min.js'></script>
+  <script src='js/main.js'></script>
 </body>
 </html>
