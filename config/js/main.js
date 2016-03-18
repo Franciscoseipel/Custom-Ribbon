@@ -66,10 +66,10 @@ function generateexport() {
     changeallnumbers: localStorage.changeallnumbers === 'true',
     
     numberontop: localStorage.numberontop === 'true',
-    h1posone: localStorage.h1posone === 'true',
-    h2posone: localStorage.h2posone === 'true',
-    m1posone: localStorage.m1posone === 'true',
-    m2posone: localStorage.m2posone === 'true',
+    h1posone: localStorage.h1posone,
+    h2posone: localStorage.h2posone,
+    m1posone: localStorage.m1posone,
+    m2posone: localStorage.m2posone,
     
     
     layer1: localStorage.layer1,
@@ -358,7 +358,9 @@ function loadOptions() {
   var $extensionbackColorPicker = $('#extensionbackColorPicker');
   
   
-  
+  var $noanimationCheckbox = $('#noanimationCheckbox');
+  var $noextensionCheckbox = $('#noextensionCheckbox');
+  var $taplimiterCheckbox = $('#taplimiterCheckbox');
 
   
   
@@ -431,15 +433,34 @@ function loadOptions() {
     $m1posonepic[0].value = localStorage.m1posone;
     $m2posonepic[0].value = localStorage.m2posone;
     
-    $enegyPicker[0].value = localStorage.enegy;
+    
     $l1funcpic[0].value = localStorage.l1func;
     $l2funcpic[0].value = localStorage.l2func;
     $l3funcpic[0].value = localStorage.l3func;
     $extensionfontColorPicker[0].value = localStorage.extensionfontColor;
     $extensionbackColorPicker[0].value = localStorage.extensionbackColor;
   
+  
+  var $vlu = localStorage.enegy;
+  if($vlu>3){
+    $taplimiterCheckbox[0].checked = 'true';
+    $vlu=$vlu-4;
+  }
+  if($vlu>1){
+    $noextensionCheckbox[0].checked = 'true';
+    $vlu=$vlu-2;
+  }
+  if($vlu>0){
+    $noanimationCheckbox[0].checked = 'true';
+  }
+  
+//  $noanimationCheckbox[0].checked 
+//  $noextensionCheckbox[0].checked 
+//  $taplimiterCheckbox[0].checked 
+  
+  
   }else{
-    importdata('{"backgroundColor":"0x000000","twentyFourHourFormat":false,"h1dir":"8","h1numberColor":"0xFFFFFF","h1bandColor":"0x00AAFF","h1x":"40","h1y":"32","h1delay":"500","h1duration":"1000","h1outline":false,"h1line":false,"h1linesColor":"0x0055FF","h2trans":false,"h2dir":"7","h2numberColor":"0xFFFFFF","h2bandColor":"0x0055FF","h2x":"90","h2y":"32","h2delay":"0","h2duration":"1000","h2outline":false,"h2line":false,"h2linesColor":"0x000000","m1trans":false,"m1dir":"6","m1numberColor":"0xFFFFFF","m1bandColor":"0x00ff00","m1x":"40","m1y":"97","m1delay":"600","m1duration":"1000","m1outline":false,"m1line":false,"m1linesColor":"0x000000","m2trans":false,"m2dir":"7","m2numberColor":"0xFFFFFF","m2bandColor":"0x009600","m2x":"90","m2y":"97","m2delay":"100","m2duration":"1000","m2outline":false,"m2line":false,"m2linesColor":"0x000000","invertanimationdelay":true,"changeallnumbers":true,"layer1":"1","layer2":"2","layer3":"3","layer4":"4"}');
+    importdata('{"backgroundColor":"0x000000","twentyFourHourFormat":false,"h1dir":"8","h1numberColor":"0xFFFFFF","h1bandColor":"0x00AAFF","h1x":"40","h1y":"32","h1delay":"500","h1duration":"1000","h1outline":false,"h1line":false,"h1linesColor":"0x0055FF","h2trans":false,"h2dir":"7","h2numberColor":"0xFFFFFF","h2bandColor":"0x0055FF","h2x":"90","h2y":"32","h2delay":"0","h2duration":"1000","h2outline":false,"h2line":false,"h2linesColor":"0x000000","m1trans":false,"m1dir":"6","m1numberColor":"0xFFFFFF","m1bandColor":"0x00ff00","m1x":"40","m1y":"97","m1delay":"600","m1duration":"1000","m1outline":false,"m1line":false,"m1linesColor":"0x000000","m2trans":false,"m2dir":"7","m2numberColor":"0xFFFFFF","m2bandColor":"0x009600","m2x":"90","m2y":"97","m2delay":"100","m2duration":"1000","m2outline":false,"m2line":false,"m2linesColor":"0x000000","invertanimationdelay":true,"changeallnumbers":true,"numberontop":true,"h1posone":"0","h2posone":"0","m1posone":"0","m2posone":"0","layer1":"1","layer2":"2","layer3":"3","layer4":"4"}');
   }
 }
 
@@ -512,6 +533,14 @@ function getAndStoreConfigData() {
   var $l3funcpic = $('#l3funcpic');
   var $extensionfontColorPicker = $('#extensionfontColorPicker');
   var $extensionbackColorPicker = $('#extensionbackColorPicker');
+  
+  
+  
+  var $noanimationCheckbox = $('#noanimationCheckbox');
+  var $noextensionCheckbox = $('#noextensionCheckbox');
+  var $taplimiterCheckbox = $('#taplimiterCheckbox');
+  
+  
 
   
   
@@ -578,7 +607,8 @@ function getAndStoreConfigData() {
     m1posone: $m1posonepic.val(),
     m2posone: $m2posonepic.val(),
     
-    enegy: $enegyPicker.val(),
+    
+    enegy: ($noanimationCheckbox[0].checked*1)+($noextensionCheckbox[0].checked*2)+($taplimiterCheckbox[0].checked*4),
     l1func: $l1funcpic.val(),
     l2func: $l2funcpic.val(),
     l3func: $l3funcpic.val(),
@@ -661,7 +691,7 @@ function getAndStoreConfigData() {
   localStorage.l2func = options.l2func;
   localStorage.l3func = options.l3func;
   localStorage.extensionfontColor = options.extensionfontColor;
-  localStorage.extensionfontColor = options.extensionfontColor;
+  localStorage.extensionbackColor = options.extensionbackColor;
   
   
   
