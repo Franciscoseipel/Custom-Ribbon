@@ -71,15 +71,32 @@
         "configurable",
         "health"
     ],
-    "companyName": "francisco.seipel@yahoo.de",
+    "companyName": "lolamtisch",
     "enableMultiJS": true,
-    "longName": "Version 2",
+    "longName": "Custom-Ribbon",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "fonts/Silkscreen",
+                "name": "FONT_SILKSCREEN_24",
+                "targetPlatforms": null,
+                "type": "font"
+            },
+            {
+                "file": "images/menu",
+                "menuIcon": true,
+                "name": "menu",
+                "targetPlatforms": [
+                    "basalt",
+                    "chalk"
+                ],
+                "type": "png"
+            }
+        ]
     },
     "sdkVersion": "3",
-    "shortName": "Version 2",
+    "shortName": "Ribbon",
     "targetPlatforms": [
         "basalt",
         "chalk"
