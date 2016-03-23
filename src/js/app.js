@@ -77,8 +77,8 @@ Pebble.addEventListener('ready', function() {
 });
 
 Pebble.addEventListener('showConfiguration', function() {
-  var url = 'http://lolamtisch.de/pebble/config/index.html';
-
+  //var url = 'http://lolamtisch.de/pebble/config/index.html';
+var url = 'http://franciscoseipel.github.io/Custom-Ribbon/config/';
   console.log('Showing configuration page: ' + url);
 
   Pebble.openURL(url);
