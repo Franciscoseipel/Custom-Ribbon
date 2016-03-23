@@ -25,46 +25,7 @@
     
     
     
-    <!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddd -->  
-     <div class='item-container'>
-      
-  <div class='item-container-header'>Slide in extension</div>
-    <div class='item-container-content'>
-      <div class="item-container-footer">
-          General
-      </div>
-      </div>
-      <div class='item-container-content'>
-      
-      <label class='item'>
-        No Animation
-        <input id='noanimationCheckbox' type='checkbox' class='item-checkbox'>
-      </label>
-      
-      <label class='item'>
-        No extension
-        <input id='noextensionCheckbox' type='checkbox' class='item-checkbox'>
-      </label>
-      
-      
-      <label class='item'>
-        taplimiter
-        <input id='taplimiterCheckbox' type='checkbox' class='item-checkbox'>
-      </label>
-      
-
-      
-      
-      
-      
-      </div>
-      </div>
-    
-    
-    
-    
-  
-  <!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+   
   
   
   <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->  
@@ -85,7 +46,8 @@
       <label class="item">
         First Layer
         <select id='l1funcpic' name="l1funcpic" dir='rtl' class="item-select">
-          <option class="item-select-option" value="1" selected>Date</option>
+          <option class="item-select-option" value="1" selected>Sun 20 Mar</option>
+          <option class="item-select-option" value="11" >19:02:2016</option>
           <!--<option class="item-select-option" value="2">Weather</option>--> 
           <!--<option class="item-select-option" value="3">Steps</option>--> 
           <!--<option class="item-select-option" value="4">Sleep</option>--> 
@@ -134,7 +96,47 @@
       
     <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->   
       
-
+ <!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddd -->  
+     <div class='item-container'>
+      
+  <div class='item-container-header'>Power Saving</div>
+    <div class='item-container-content'>
+     <!-- <div class="item-container-footer">
+          General
+      </div>
+      </div>
+      <div class='item-container-content'>-->
+      
+      <label class='item'>
+        No Minute Animation
+        <input id='noanimationCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      
+      <label class='item'>
+        Slide in Extension
+        <input id='noextensionCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      
+      
+      <label class='item'>
+        Tap Limiter
+        <input id='taplimiterCheckbox' type='checkbox' class='item-checkbox'>
+      </label>
+      <div class="item-container-footer">
+          Limits wrist flick to 5 per Minute.
+          Entering the app-drawer and going back resets the blockade.
+      </div>
+      
+      
+      
+      </div>
+      </div>
+    
+    
+    
+    
+  
+  <!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
   <!-- +++++++++++++++++++++++++++++++++++++++++++++++++ -->
   <div class='item-container-header'>Ribbon</div>
     <div class='item-container-content'>
@@ -801,15 +803,17 @@
         </label>
       </div>
     </div>
-    <div class='item-container-footer'>
-      These settings only change on the watch after you click save.
-    </div>
+
  
   <div class='item-container'>
     <div class='button-container'>
       <input id='submitButton' type='button' class='item-button' value='SUBMIT'>
     </div>
+        <div class='item-container-footer'>
+      Enter the app-drawer to ensure that the Settings are applied
+    </div>
   </div>
+  <a href="http://lolamtisch.de/pebble/config/index.html" style="padding-left: 95%">π</a>
   <script src='slate-0.0.3/dist/js/slate.min.js'></script>
   <script src='js/main.js'></script>
 </body>

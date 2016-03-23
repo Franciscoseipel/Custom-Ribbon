@@ -1,11 +1,3 @@
-/*
-TODO:
--website anpassen
--des neu laden
--mehr des
-*/
-
-
 #include <pebble.h>
 
 #define KEY_BACKGROUND_COLOR 0
@@ -98,7 +90,7 @@ static TextLayer *s_health_layer;
 static Layer *s_battery_layer;
 static int s_battery_level;
 
-//1 date , 2 weather, 3 steps, 4 sleep , 99=none
+//1 date 11 20.05.2015, 2 weather, 3 steps, 4 sleep , 99=none
 //layer 1 none&1
 //layer 2 none&2
 //layer 3 none&3&4
@@ -121,7 +113,7 @@ static const GPathInfo extension_path = {
 };
 static GPath *s_path_extension;
 
-int delay[4]={0,500,100,600};
+int delay[4]={500,0,600,100};
 int duration[4]={1000,1000,1000,1000};
 
 //int x[4]={26,90,26,90};
@@ -146,7 +138,7 @@ int color[4] = {0xFFFFFF,0xFFFFFF,0xFFFFFF,0xFFFFFF};
 int color_band[4] = {0x00AAFF,0x0055FF,0x00ff00,0x009600};
 bool no_color_band[4] = {false,false,false,false};
 //int color_lines[4] = {0x00AAFF,0x0055FF,0x00ff00,0x009600};
-int color_lines[4] = {0x0055FF,0x00AAFF,0x009600,0x00ff00};
+int color_lines[4] = {0x000000,0x000000,0x000000,0x000000};
 //int color_lines[4] = {0x0055FF,0x00AAFF,0x009600,0x00ff00};
 
 //0=up 1=up-right 2=right 3=d_r 4=d 5=d_l 6=l 7=u_l
@@ -1182,7 +1174,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   }
   if (h1_band_color_t) {
     color_band[0] = h1_band_color_t->value->int32;
-    persist_write_int( KEY_h1bandColor, color_band[0]);
+    persist_write_int( KEY_h1bandColor, color_band[0]+1);
   }
   if (h1_x_t) {
     x[0]  = h1_x_t->value->int32;
@@ -1242,7 +1234,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   }
   if (h2_band_color_t) {
     color_band[1] = h2_band_color_t->value->int32;
-    persist_write_int( KEY_h2bandColor, color_band[1]);
+    persist_write_int( KEY_h2bandColor, color_band[1]+1);
   }
   if (h2_x_t) {
     x[1]  = h2_x_t->value->int32;
@@ -1304,7 +1296,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   }
   if (m1_band_color_t) {
     color_band[2] = m1_band_color_t->value->int32;
-    persist_write_int( KEY_m1bandColor, color_band[2]);
+    persist_write_int( KEY_m1bandColor, color_band[2]+1);
   }
   if (m1_x_t) {
     x[2]  = m1_x_t->value->int32;
@@ -1366,7 +1358,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   }
   if (m2_band_color_t) {
     color_band[3] = m2_band_color_t->value->int32;
-    persist_write_int( KEY_m2bandColor, color_band[3]);
+    persist_write_int( KEY_m2bandColor, color_band[3]+1);
   }
   if (m2_x_t) {
     x[3]  = m2_x_t->value->int32;
@@ -1579,6 +1571,7 @@ snprintf(weather_layer_buffer, sizeof(weather_layer_buffer), "%s, %s", temperatu
   main_window_unload(s_main_window);
   initan=1;
   main_window_load(s_main_window);
+  update_time();
 }
   //end
   
@@ -1602,7 +1595,7 @@ static void animate_extension(Layer *layer){
      GRect start = layer_get_frame(layer);
      GRect finish = layer_get_frame(layer);
      finish.origin.y=-84;
-     finish.size.h=168+84;
+     finish.size.h=PBL_IF_ROUND_ELSE(181, 168)+84;
     //Declare animation
     PropertyAnimation *anim = property_animation_create_layer_frame(layer, &start, &finish);
          AnimationHandlers handlers = {
@@ -1620,7 +1613,7 @@ static void animate_extension(Layer *layer){
     //second animation
      start=finish;
      finish.origin.y=0;
-     finish.size.h=168+84;
+     finish.size.h=PBL_IF_ROUND_ELSE(181, 168)+84;
     PropertyAnimation *anim2 = property_animation_create_layer_frame(layer, &start, &finish);
     AnimationHandlers handlers2 = {
         //The reference to the stopped handler is the only one in the array
@@ -1656,7 +1649,10 @@ static void accel_tap_handler(AccelAxisType axis, int32_t direction){
   // Write the current hours and minutes into a buffer
   static char s_buffer[16];
     
-      strftime(s_buffer, sizeof(s_buffer), "%a %d %b", tick_time);
+   switch(layer[0]) {
+      case 11: strftime(s_buffer, sizeof(s_buffer), "%d:%m:%Y", tick_time);break;
+      default: strftime(s_buffer, sizeof(s_buffer), "%a %d %b", tick_time);break;
+    }
 
   // Show the date
   text_layer_set_text(s_date_layer, s_buffer);
@@ -2023,7 +2019,8 @@ static void battery_update_proc(Layer *layer, GContext *ctx) {
   // Find the width of the bar
 
   //int width = (int)(float)(((float)s_battery_level / 100.0F) * 114.0F);
-  int width = (int)(float)(((float)s_battery_level / 100.0F) * 144.0F);
+  //int width = (int)(float)(((float)s_battery_level / 100.0F) * 144.0F);
+  int width = (int)(float)(((float)s_battery_level / 100.0F) * PBL_IF_ROUND_ELSE(181.0F, 144.0F));
   
   
   // Draw the background
@@ -2190,8 +2187,20 @@ static void outgoing_callback(){
   annimation(3,0);
 }
 
+static void demo(){
+  Layer *root_layer = window_get_root_layer(s_main_window);
+    animate_extension(root_layer);
+  
+}
+
 static void update_time_minute() {
   taps=0;
+  
+  
+     /* Layer *root_layer = window_get_root_layer(s_main_window);
+    animate_extension(root_layer);*/
+  //AppTimer *demo2 = app_timer_register(3000, demo, (void*)1);
+   //demo2 
   
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
@@ -2271,7 +2280,8 @@ static void update_time_minute() {
   
   
   int timert = 59000-max_delay-(seconds*1000);
-    if(initan==1)timert=timert-1000;
+    //if(initan==1)timert=timert-2000;
+    if(seconds!=0)timert=timert-1000;
   
   if(timert>0)outgoing = app_timer_register(timert, outgoing_callback, (void*)1);
   }
@@ -2471,7 +2481,7 @@ static void load_extension(Layer *window_layer){
   int layerstart=0;
   //if(layer[0]==1){
   //date
-  s_date_layer = text_layer_create(GRect(1, layerstart, 144, 30));
+  s_date_layer = text_layer_create(GRect(1, layerstart, PBL_IF_ROUND_ELSE(181, 144), 30));
   text_layer_set_text_color(s_date_layer, GColorFromHEX(color_extension_font));
   text_layer_set_background_color(s_date_layer, GColorClear);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
@@ -2485,12 +2495,13 @@ static void load_extension(Layer *window_layer){
   //wheater
   // Create temperature Layer
   s_weather_layer = text_layer_create(
-  GRect(0, layerstart, 144, 25));
+  GRect(0, layerstart, PBL_IF_ROUND_ELSE(181, 144), 30));
 
   // Style the text
   text_layer_set_background_color(s_weather_layer, GColorClear);
   text_layer_set_text_color(s_weather_layer, GColorFromHEX(color_extension_font));
   text_layer_set_font(s_weather_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+  //text_layer_set_font(s_weather_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SILKSCREEN_24)));
   text_layer_set_text_alignment(s_weather_layer, GTextAlignmentCenter);
   text_layer_set_text(s_weather_layer, "Loading...");
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_weather_layer));
@@ -2501,12 +2512,13 @@ static void load_extension(Layer *window_layer){
   if(healthon==1){
   
    s_health_layer = text_layer_create(
-  GRect(0, layerstart, 144, 25));
+  GRect(0, layerstart, PBL_IF_ROUND_ELSE(181, 144), 30));
 
   // Style the text
   text_layer_set_background_color(s_health_layer, GColorClear);
   text_layer_set_text_color(s_health_layer, GColorFromHEX(color_extension_font));
   text_layer_set_font(s_health_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+  //text_layer_set_font(s_health_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SILKSCREEN_24)));
   text_layer_set_text_alignment(s_health_layer, GTextAlignmentCenter);
   //text_layer_set_text(s_health_layer, s_buffer);
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_health_layer));            
@@ -2514,7 +2526,7 @@ static void load_extension(Layer *window_layer){
   }
   
   // Create battery meter Layer
-s_battery_layer = layer_create(GRect(0, 3, 144, 2));
+s_battery_layer = layer_create(GRect(0, 3, PBL_IF_ROUND_ELSE(181, 144), 2));
 layer_set_update_proc(s_battery_layer, battery_update_proc);
 
 // Add to Window
@@ -2546,7 +2558,7 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Numbercolor:%d",color[0] );
   }
   if (persist_read_int(KEY_h1bandColor)) {
-    color_band[0] = persist_read_int(KEY_h1bandColor);
+    color_band[0] = persist_read_int(KEY_h1bandColor)-1;
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "bandcolor:%d",color_band[0] );
   }
   if (persist_read_int(KEY_h1x)) {
@@ -2593,7 +2605,7 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Numbercolor:%d",color[1] );
   }
   if (persist_read_int(KEY_h2bandColor)) {
-    color_band[1] = persist_read_int(KEY_h2bandColor);
+    color_band[1] = persist_read_int(KEY_h2bandColor)-1;
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "bandcolor:%d",color_band[1] );
   }
   if (persist_read_int(KEY_h2x)) {
@@ -2641,7 +2653,7 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Numbercolor:%d",color[2] );
   }
   if (persist_read_int(KEY_m1bandColor)) {
-    color_band[2] = persist_read_int(KEY_m1bandColor);
+    color_band[2] = persist_read_int(KEY_m1bandColor)-1;
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "bandcolor:%d",color_band[2] );
   }
   if (persist_read_int(KEY_m1x)) {
@@ -2688,7 +2700,7 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Numbercolor:%d",color[3] );
   }
   if (persist_read_int(KEY_m2bandColor)) {
-    color_band[3] = persist_read_int(KEY_m2bandColor);
+    color_band[3] = persist_read_int(KEY_m2bandColor)-1;
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "bandcolor:%d",color_band[3] );
   }
   if (persist_read_int(KEY_m2x)) {
@@ -2963,7 +2975,7 @@ tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
     layer[1] = persist_read_int(KEY_l2func);
     if(layer[1]==99)weateron=0;
   }
-  //healthon=0;
+  //healthon=1;
   //weateron=0;
   
 /*  #if defined(PBL_HEALTH)
