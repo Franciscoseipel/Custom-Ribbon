@@ -1089,6 +1089,7 @@ static void PATH_line_down_0(int l) {
 }
 
 static void update_time();
+static void update_time_minute();
 static void main_window_unload(Window *window);
 static void main_window_load(Window *window);
 
@@ -1170,7 +1171,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   }
     if (h1_number_color_t) {
     color[0] = h1_number_color_t->value->int32;
-    persist_write_int( KEY_h1numberColor, color[0]);
+    persist_write_int( KEY_h1numberColor, color[0]+1);
   }
   if (h1_band_color_t) {
     color_band[0] = h1_band_color_t->value->int32;
@@ -1230,7 +1231,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   }
     if (h2_number_color_t) {
     color[1] = h2_number_color_t->value->int32;
-    persist_write_int( KEY_h2numberColor, color[1]);
+    persist_write_int( KEY_h2numberColor, color[1]+1);
   }
   if (h2_band_color_t) {
     color_band[1] = h2_band_color_t->value->int32;
@@ -1292,7 +1293,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   }
     if (m1_number_color_t) {
     color[2] = m1_number_color_t->value->int32;
-    persist_write_int( KEY_m1numberColor, color[2]);
+    persist_write_int( KEY_m1numberColor, color[2]+1);
   }
   if (m1_band_color_t) {
     color_band[2] = m1_band_color_t->value->int32;
@@ -1354,7 +1355,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   }
     if (m2_number_color_t) {
     color[3] = m2_number_color_t->value->int32;
-    persist_write_int( KEY_m2numberColor, color[3]);
+    persist_write_int( KEY_m2numberColor, color[3]+1);
   }
   if (m2_band_color_t) {
     color_band[3] = m2_band_color_t->value->int32;
@@ -1571,7 +1572,8 @@ snprintf(weather_layer_buffer, sizeof(weather_layer_buffer), "%s, %s", temperatu
   main_window_unload(s_main_window);
   initan=1;
   main_window_load(s_main_window);
-  update_time();
+  //update_time();
+  update_time_minute();
 }
   //end
   
@@ -2199,7 +2201,7 @@ static void update_time_minute() {
   
      /* Layer *root_layer = window_get_root_layer(s_main_window);
     animate_extension(root_layer);*/
-  //AppTimer *demo2 = app_timer_register(3000, demo, (void*)1);
+ // AppTimer *demo2 = app_timer_register(3000, demo, (void*)1);
    //demo2 
   
   time_t temp = time(NULL);
@@ -2219,6 +2221,15 @@ static void update_time_minute() {
   time_switch(1,s_buffer[1]-'0');
   time_switch(2,s_buffer[3]-'0');
   time_switch(3,s_buffer[4]-'0');
+  
+  
+  
+  /*      time_switch(0,1);
+  time_switch(1,3);
+  time_switch(2,3);
+  time_switch(3,7);*/
+  
+  
   
   text_layer_set_text(s_time_layer, s_buffer);
   //}
@@ -2299,8 +2310,17 @@ static void update_time() {
   int seconds = tick_time->tm_sec;
   
   if(seconds == 0 || initan == 1){
+    //demo
+   /*   time_switch(0,1);
+  time_switch(1,3);
+  time_switch(2,3);
+  time_switch(3,7);*/
+  
+    //d
+    
   //int l = 0;
   //int h= s_buffer[0]-'0';
+    
   time_switch(0,s_buffer[0]-'0');
   time_switch(1,s_buffer[1]-'0');
   time_switch(2,s_buffer[3]-'0');
@@ -2520,6 +2540,8 @@ static void load_extension(Layer *window_layer){
   text_layer_set_font(s_health_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
   //text_layer_set_font(s_health_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SILKSCREEN_24)));
   text_layer_set_text_alignment(s_health_layer, GTextAlignmentCenter);
+    
+    //text_layer_set_text(s_health_layer, "744 Steps");
   //text_layer_set_text(s_health_layer, s_buffer);
   layer_add_child(s_path_layer_extension,text_layer_get_layer(s_health_layer));            
      
@@ -2554,7 +2576,7 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Dir:%d",dir[0] );
   }
   if (persist_read_int(KEY_h1numberColor)) {
-    color[0]  = persist_read_int(KEY_h1numberColor);
+    color[0]  = persist_read_int(KEY_h1numberColor)-1;
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Numbercolor:%d",color[0] );
   }
   if (persist_read_int(KEY_h1bandColor)) {
@@ -2601,7 +2623,7 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Dir:%d",dir[1] );
   }
   if (persist_read_int(KEY_h2numberColor)) {
-    color[1]  = persist_read_int(KEY_h2numberColor);
+    color[1]  = persist_read_int(KEY_h2numberColor)-1;
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Numbercolor:%d",color[1] );
   }
   if (persist_read_int(KEY_h2bandColor)) {
@@ -2649,7 +2671,7 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Dir:%d",dir[2] );
   }
   if (persist_read_int(KEY_m1numberColor)) {
-    color[2]  = persist_read_int(KEY_m1numberColor);
+    color[2]  = persist_read_int(KEY_m1numberColor)-1;
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Numbercolor:%d",color[2] );
   }
   if (persist_read_int(KEY_m1bandColor)) {
@@ -2696,7 +2718,7 @@ static void main_window_load(Window *window) {
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Dir:%d",dir[3] );
   }
   if (persist_read_int(KEY_m2numberColor)) {
-    color[3]  = persist_read_int(KEY_m2numberColor);
+    color[3]  = persist_read_int(KEY_m2numberColor)-1;
     //APP_LOG(APP_LOG_LEVEL_DEBUG, "Numbercolor:%d",color[3] );
   }
   if (persist_read_int(KEY_m2bandColor)) {
@@ -2993,7 +3015,7 @@ APP_LOG(APP_LOG_LEVEL_ERROR, "Health not available!");
   
   
   
-  update_time();
+  update_time_minute();
 }
 static void deinit() {
   // Destroy Window
