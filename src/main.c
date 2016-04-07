@@ -1,3 +1,7 @@
+/*
+TODO:
+Fahrenheit
+*/
 #include <pebble.h>
 
 #define KEY_BACKGROUND_COLOR 0
@@ -90,8 +94,11 @@ static TextLayer *s_health_layer;
 static Layer *s_battery_layer;
 static int s_battery_level;
 
-//1 date 11 20.05.2015, 2 weather, 3 steps, 4 sleep , 99=none
+//1 date 11 20.05.2015, 3 steps, 4 sleep , 99=none
 //layer 1 none&1
+
+// 2 Celsius, 21 fahrenheit
+bool far=0;
 //layer 2 none&2
 //layer 3 none&3&4
 int layer[3]={1,2,3};
@@ -1460,6 +1467,10 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   if (l2func_t) {
      layer[1] = (l2func_t->value->int32);
     persist_write_int(KEY_l2func, layer[1]);
+    if (layer[1]==21){
+      far=1;
+      layer[1]=2;
+    }
   }
   
       Tuple *l3func_t = dict_find(iter, KEY_l3func);
@@ -1558,7 +1569,13 @@ Tuple *conditions_tuple = dict_find(iter, KEY_CONDITIONS);
 
 // If all data is available, use it
 if(temp_tuple && conditions_tuple) {
-  snprintf(temperature_buffer, sizeof(temperature_buffer), "%dC", (int)temp_tuple->value->int32);
+  int temp = (int)temp_tuple->value->int32;
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "%d",layer[1]);
+  if (far==1){ temp = (temp * 1.8) + 32;
+    snprintf(temperature_buffer, sizeof(temperature_buffer), "%dF", temp);
+  }else{
+    snprintf(temperature_buffer, sizeof(temperature_buffer), "%dC", temp);
+  }
   snprintf(conditions_buffer, sizeof(conditions_buffer), "%s", conditions_tuple->value->cstring);
   // Assemble full string and display
 snprintf(weather_layer_buffer, sizeof(weather_layer_buffer), "%s, %s", temperature_buffer, conditions_buffer);
@@ -2821,6 +2838,10 @@ static void main_window_load(Window *window) {
   }
   if (persist_read_int(KEY_l2func)) {
     layer[1] = persist_read_int(KEY_l2func);
+    if (layer[1]==21){
+      far=1;
+      layer[1]=2;
+    }
   }
   if (persist_read_int(KEY_l3func)) {
     layer[2] = persist_read_int(KEY_l3func);
