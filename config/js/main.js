@@ -629,6 +629,12 @@ function getAndStoreConfigData() {
     layer3: $list[2].value,
     layer4: $list[3].value,
   };
+  
+  
+  
+  if(options.extensionbackColor==0x000000){
+    options.extensionbackColor=0x000001;
+  }
 
   localStorage.backgroundColor = options.backgroundColor;
   localStorage.twentyFourHourFormat = options.twentyFourHourFormat;
@@ -698,7 +704,7 @@ function getAndStoreConfigData() {
   localStorage.extensionfontColor = options.extensionfontColor;
   localStorage.extensionbackColor = options.extensionbackColor;
   
-  
+
   
   localStorage.invertanimationdelay = options.invertanimationdelay;
   localStorage.changeallnumbers = options.changeallnumbers;
