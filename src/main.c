@@ -1,6 +1,6 @@
 /*
 TODO:
-Fahrenheit
+Black background extension
 */
 #include <pebble.h>
 
@@ -1520,7 +1520,8 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   
    if (changeallnumbers_t) {
     change_all_numbers = changeallnumbers_t->value->int8;
-    persist_write_int(KEY_invertanimationdelay, change_all_numbers+1);
+    persist_write_int(KEY_changeallnumbers, change_all_numbers+1);
+     
   }
   
   if (layer1_t) {
@@ -2578,7 +2579,7 @@ static void main_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   
     
-  ///APP_LOG(APP_LOG_LEVEL_DEBUG, "start" );
+  //APP_LOG(APP_LOG_LEVEL_DEBUG, "start" );
 
   if (persist_read_int(KEY_BACKGROUND_COLOR)) {
     color_background = persist_read_int(KEY_BACKGROUND_COLOR);
@@ -2779,10 +2780,8 @@ static void main_window_load(Window *window) {
   
     if (persist_read_bool(KEY_changeallnumbers)) {
     change_all_numbers = persist_read_bool(KEY_changeallnumbers)-1;
-  }
-  
-  
-  
+     // APP_LOG(APP_LOG_LEVEL_DEBUG, "change_all_number:%d",change_all_numbers );
+  }  
   
   if (persist_read_int(KEY_layer1)) {
     order[0] = persist_read_int(KEY_layer1)-1;
